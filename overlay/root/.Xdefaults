@@ -1,0 +1,304 @@
+! file:     ~/.Xdefaults
+! author:   STxza
+! vim:enc=utf-8:nu:ai:si:et:ts=4:sw=4:ft=xdefaults:
+!-------------------------------------------------------------------------------
+! {{{ Xcursor
+Xcursor.theme:          ComixCursors-opaque-White-Small
+Xcursor.size:           10
+! }}}
+
+!-------------------------------------------------------------------------------
+! {{{ URxvt
+!URxvt*termName:         rxvt-256color
+URxvt*imLocale:         en_US.UTF-8
+URxvt*loginShell:       true
+URxvt*saveLines:        1000
+
+URxvt*scrollBar:        false
+URxvt*secondaryScroll:  true
+
+URxvt*cursorBlink:      true
+URxvt*cursorColor:      #ffffff
+URxvt*borderless:       1
+
+URxvt*skipBuiltinGlyphs: true
+URxvt*xftAntialias:     true
+URxvt*depth:            24
+URxvt*transparent:      false
+URxvt*inheritPixmap:    false
+!URxvt*shading:          20
+URxvt*fadeColor:        black
+URxvt*tintColor:        #555555
+URxvt*dynamicColors:    on
+
+URxvt*visualBell:       true
+URxvt*urgentOnBell:     true
+
+URxvt*perl-lib:           /usr/lib/urxvt/perl/
+URxvt*perl-ext-common:    default,matcher,searchable-scrollback
+URxvt*urlLauncher:        /usr/bin/firefox
+URxvt*matcher.button:     1
+URxvt*matcher.pattern.1:  \\bwww\\.[\\w-]+\\.[\\w./?&@#-]*[\\w/-]
+URxvt*keysym.C-u:         perl:matcher
+! }}}
+
+!-------------------------------------------------------------------------------
+! {{{ Fonts
+
+URxvt.font:           -*-gohufont-medium-*-*-*-*-*-*-*-*-*-*-*
+URxvt.boldFont:       -*-gohufont-medium-*-*-*-*-*-*-*-*-*-*-*
+URxvt.italicFont:     -*-gohufont-medium-*-*-*-*-*-*-*-*-*-*-*
+URxvt.bolditalicFont: -*-gohufont-medium-*-*-*-*-*-*-*-*-*-*-*
+
+!URxvt.font:            xft:Monaco:pixelsize=11:antialias=true:hinting=true
+!URxvt.boldFont:        xft:Monaco:pixelsize=11:antialias=true:bold:hinting=true
+!URxvt.italicFont:      xft:Monaco:pixelsize=11:antialias=true:italic:autohint=true:hinting=true
+!URxvt.bolditalicFont:  xft:Monaco:pixelsize=11:antialias=true:bold:italic:autohint=true:hinting=true
+
+!URxvt.font:            -xos4-terminus-medium-r-normal--12-*-*-*-*-*-*-u
+!URxvt*boldFont:        -xos4-terminus-bold-r-normal--12-*-*-*-*-*-*-u
+!URxvt*italicFont:      -xos4-terminus-medium-r-normal--12-*-*-*-*-*-*-u
+!URxvt*boldItalicFont:  -xos4-terminus-medium-r-normal--12-*-*-*-*-*-*-u
+
+!URxvt*font:             -*-terminus-medium-r-*-*-12-120-*-*-*-*-*-*
+!URxvt*boldFont:         -*-terminus-medium-r-*-*-12-120-*-*-*-*-*-*
+!URxvt*italicFont:       -*-terminus-medium-r-*-*-12-120-*-*-*-*-*-*
+!URxvt*boldItalicFont:   -*-terminus-medium-r-*-*-12-120-*-*-*-*-*-*
+
+!URxvt*font: 			-*-profont-medium-r-*-*-12-120-*-*-*-*-*-*
+!URxvt*boldFont: 		-*-profont-medium-r-*-*-12-120-*-*-*-*-*-*
+!URxvt*italicFont: 		-*-profont-medium-r-*-*-12-120-*-*-*-*-*-*
+!URxvt*bolditalicFont: 	-*-profont-medium-r-*-*-12-120-*-*-*-*-*-*
+! }}}
+
+!-------------------------------------------------------------------------------
+! {{{ Colours
+!URxvt*background: #111111
+!URxvt*foreground: #dcdccc
+
+! Daisuke
+URxvt*background: #000000
+URxvt*foreground: #dcdccc
+!black
+URxvt*color0: #1e1e1e
+URxvt*color8: #505050
+!red
+URxvt*color1: #b04020
+URxvt*color9: #dd4010
+!green
+URxvt*color2: #afd700
+URxvt*color10: #daff30
+!yellow
+URxvt*color3: #f7cf0a
+URxvt*color11: #fce70d
+!blue
+URxvt*color4: #3060aa
+URxvt*color12: #6099dd
+!magenta
+URxvt*color5: #d6156c
+URxvt*color13: #fe4365
+!cyan
+URxvt*color6: #a0c2de
+URxvt*color14: #c9dee8
+!white
+URxvt*color7: #808080
+URxvt*color15: #b0b0b0
+
+! MrElendig
+! black
+!*color0: #000000
+!*color8: #9999AA 
+! red
+!*color1: #DE1923
+!*color9: #FF6050 
+! green
+!*color2: #559933
+!*color10: #66D077 
+! yellow
+!*color3: #FF9922
+!*color11: #FFFFAF 
+! blue
+!*color4: #3579A8
+!*color12: #4EB4FA 
+! magenta
+!*color5: #BB88DD
+!*color13: #D7AFD7 
+! cyan
+!*color6: #00BBDD
+!*color14: #0DEBFF 
+! white
+!*color7: #C7C7C7
+!*color15: #D9D9D9
+
+! Gigamo
+! Black
+!*color0: #1e1e1e
+!*color8: #555753
+! Red
+!*color1: #CC0000
+!*color9: #EF2929
+! Green
+!*color2: #4E9A06
+!*color10: #8AE234
+! Yellow
+!*color3: #C4A000
+!*color11: #FCE94F
+! Blue
+!*color4: #3465A4
+!*color12: #729FCF
+! Purple
+!*color5: #75507B
+!*color13: #AD7FA8
+! Cyan
+!*color6: rgb:06/98/9A
+!*color14: #34E2E2
+! White
+!*color7: #9f9f9f
+!*color15: #e0e0e0
+ 
+! Zenburn
+! black + red
+!*color0: #1E2320
+!*color1: #705050
+! green + yellow
+!*color2: #60b48a
+!*color3: #dfaf8f
+! blue + purple
+!*color4: #506070
+!*color5: #dc8cc3
+! cyan + white
+!*color6: #8cd0d3
+!*color7: #dcdccc
+! bright-black + bright-red
+!*color8: #709080
+!*color9: #dca3a3
+! bright-green + bright-yellow
+!*color10: #c3bf9f
+!*color11: #f0dfaf
+! bright-blue + bright-purple
+!*color12: #94bff3
+!*color13: #ec93d3
+! bright-cyan + bright-white
+!*color14: #93e0e3
+!*color15: #ffffff
+! }}}
+
+!-------------------------------------------------------------------------------
+! {{{ xmessage
+Xmessage*font: -xos4-terminus-*-*-*-*-*-*-*-*-*-*-iso8859-2
+Xmessage*background: #3F3F3F
+Xmessage*foreground: #F0DFAF
+Xmessage*form.*.shapeStyle: rectangle
+Xmessage*Scrollbar.width: 1
+Xmessage*Scrollbar.borderWidth: 0
+!Xmessage.form.message.Scroll: WhenNeeded
+!Xmessage*Buttons: Quit
+!Xmessage*defaultButton: Quit
+!Xmessage*geometry: +20+20
+! }}}
+
+!-------------------------------------------------------------------------------
+! {{{ xpdf
+xpdf*enableFreetype: yes
+xpdf*antialias: yes
+xpdf*foreground: black
+xpdf*background: white
+xpdf*urlCommand: /usr/bin/firefox %s
+xpdf*viKeys: on
+! }}}
+
+!-------------------------------------------------------------------------------
+! {{{ xcalc
+xcalc*geometry: 200x275
+xcalc.ti.bevel.background: #111111
+xcalc.ti.bevel.screen.background: #000000
+xcalc.ti.bevel.screen.DEG.background: #000000
+xcalc.ti.bevel.screen.DEG.foreground: LightSeaGreen
+xcalc.ti.bevel.screen.GRAD.background: #000000
+xcalc.ti.bevel.screen.GRAD.foreground: LightSeaGreen
+xcalc.ti.bevel.screen.RAD.background: #000000
+xcalc.ti.bevel.screen.RAD.foreground: LightSeaGreen
+xcalc.ti.bevel.screen.INV.background: #000000
+xcalc.ti.bevel.screen.INV.foreground: Red
+xcalc.ti.bevel.screen.LCD.background: #000000
+xcalc.ti.bevel.screen.LCD.foreground: LightSeaGreen
+xcalc.ti.bevel.screen.LCD.shadowWidth: 0
+xcalc.ti.bevel.screen.M.background: #000000
+xcalc.ti.bevel.screen.M.foreground: LightSeaGreen
+xcalc.ti.bevel.screen.P.background: #000000
+xcalc.ti.bevel.screen.P.foreground: Yellow
+xcalc.ti.Command.foreground: White
+xcalc.ti.Command.background: #777777
+xcalc.ti.button5.background: Orange3
+xcalc.ti.button19.background: #611161
+xcalc.ti.button18.background: #611161
+xcalc.ti.button20.background: #611111
+xcalc.ti.button25.background: #722222
+xcalc.ti.button30.background: #833333
+xcalc.ti.button35.background: #944444
+xcalc.ti.button40.background: #a55555
+xcalc.ti.button22.background: #222262
+xcalc.ti.button23.background: #222262
+xcalc.ti.button24.background: #222272
+xcalc.ti.button27.background: #333373
+xcalc.ti.button28.background: #333373
+xcalc.ti.button29.background: #333373
+xcalc.ti.button32.background: #444484
+xcalc.ti.button33.background: #444484
+xcalc.ti.button34.background: #444484
+xcalc.ti.button37.background: #555595
+xcalc.ti.button38.background: #555595
+xcalc.ti.button39.background: #555595
+XCalc*Cursor: hand2
+XCalc*ShapeStyle: rectangle
+! }}}
+
+!-------------------------------------------------------------------------------
+! {{{ xfontsel
+!XFontSel*sampleText.background: TEXTBG
+XFontSel*menu*showUnselectable: false
+XFontSel*MenuButton.shadowWidth: 0
+XFontsel*Toggle*ToggleStyle: check
+XFontsel*MenuButton*Justify: left
+XFontsel*MenuButton*MenuButtonStyle: select
+xfontsel.pane.commandBox.quitButton.background: #777777
+xfontsel.pane.commandBox.quitButton.foreground: snow
+xfontsel.pane.commandBox.ownButton.background: orange3
+xfontsel.pane.commandBox.ownButton.foreground: snow
+xfontsel.pane.commandBox.countLabel.background: snow
+xfontsel.pane.viewPort.sampleText.background: #777777
+xfontsel.pane.viewPort.sampleText.foreground: snow
+xfontsel.pane.fieldBox.field0.background: #777777
+xfontsel.pane.fieldBox.field0.foreground: snow
+xfontsel.pane.fieldBox.field1.background: #777777
+xfontsel.pane.fieldBox.field1.foreground: snow
+xfontsel.pane.fieldBox.field2.background: #777777
+xfontsel.pane.fieldBox.field2.foreground: snow
+xfontsel.pane.fieldBox.field3.background: #777777
+xfontsel.pane.fieldBox.field3.foreground: snow
+xfontsel.pane.fieldBox.field4.background: #777777
+xfontsel.pane.fieldBox.field4.foreground: snow
+xfontsel.pane.fieldBox.field5.background: #777777
+xfontsel.pane.fieldBox.field5.foreground: snow
+xfontsel.pane.fieldBox.field6.background: #777777
+xfontsel.pane.fieldBox.field6.foreground: snow
+xfontsel.pane.fieldBox.field7.background: #777777
+xfontsel.pane.fieldBox.field7.foreground: snow
+xfontsel.pane.fieldBox.field8.background: #777777
+xfontsel.pane.fieldBox.field8.foreground: snow
+xfontsel.pane.fieldBox.field9.background: #777777
+xfontsel.pane.fieldBox.field9.foreground: snow
+xfontsel.pane.fieldBox.field10.background: #777777
+xfontsel.pane.fieldBox.field10.foreground: snow
+xfontsel.pane.fieldBox.field11.background: #777777
+xfontsel.pane.fieldBox.field11.foreground: snow
+xfontsel.pane.fieldBox.field12.background: #777777
+xfontsel.pane.fieldBox.field12.foreground: snow
+xfontsel.pane.fieldBox.field13.background: #777777
+xfontsel.pane.fieldBox.field13.foreground: snow
+xfontsel.pane.fieldBox*foreground: #000000
+xfontsel.pane.fieldBox.MenuButton.borderWidth: 1
+xfontsel.pane.fieldBox.MenuButton.internalHeight:1
+xfontsel.pane.fieldBox.MenuButton.internalWidth: 2
+xfontsel.pane.fieldBox.MenuButton.shapeStyle: rectangle
+! }}}

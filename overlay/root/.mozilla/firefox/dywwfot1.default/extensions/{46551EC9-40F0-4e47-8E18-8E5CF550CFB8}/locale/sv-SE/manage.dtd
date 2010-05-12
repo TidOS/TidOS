@@ -1,0 +1,20 @@
+<!ENTITY changetags "Change Tags">
+<!ENTITY changetags.ak "C">
+<!ENTITY copyinfo "Kopiera Style-info">
+<!ENTITY copyinfo.ak "S">
+<!ENTITY done "Klar">
+<!ENTITY done.ak "K">
+<!ENTITY filter "Sök">
+<!ENTITY manageaddonstitle "Användarstyles">
+<!ENTITY managetitle "Stylish">
+<!ENTITY nostylesstart "Besök">
+<!ENTITY nostylesend "för information om hur du använder Stylish.">
+<!ENTITY sortenabled "Aktiverad">
+<!ENTITY sortname "Namn">
+<!ENTITY sorttag "Tagg">
+<!ENTITY sorttype "Typ">
+<!ENTITY sortgroup "Sortera efter:">
+<!ENTITY update "Uppdatera">
+<!ENTITY update.ak "U">
+<!ENTITY writenew "Skriv ny Style">
+<!ENTITY writenew.ak "n">

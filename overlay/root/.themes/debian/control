@@ -1,0 +1,20 @@
+Source: freezy-themes
+Section: x11
+Priority: optional
+Maintainer: Lucazade <luca.forina@gmail.com>
+Build-Depends: debhelper (>= 5)
+Build-Depends-Indep: x11-apps
+Standards-Version: 3.7.3
+
+Package: freezy-themes
+Architecture: all
+Description: Freezy themes
+ At the moment the package contains:
+  * Themes: Caramello, Carbon, Ciano, Freezy
+  * Metacity: Freezy, Blended and Unity-Wide
+ Authors:
+ Freezy Gtk and Metacity: Kim Kahns (Kimmik)
+ Unity: Andrea Cimitan
+ Blended: ECHM
+
+

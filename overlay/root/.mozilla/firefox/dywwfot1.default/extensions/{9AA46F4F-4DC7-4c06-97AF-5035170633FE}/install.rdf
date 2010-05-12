@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+	<Description about="urn:mozilla:install-manifest">
+
+		<em:id>{9AA46F4F-4DC7-4c06-97AF-5035170633FE}</em:id>
+		<em:name>4chan</em:name>		
+		<em:version>0.4.5.12</em:version>
+		<em:description>Adds some obnoxious 4chan menus and other worthless features.</em:description>
+		<em:creator>DamageInc</em:creator>
+		<em:homepageURL>http://www.4chan.org</em:homepageURL>
+		<em:iconURL>chrome://4chan/skin/4chan_small.png</em:iconURL>
+		<em:updateURL>http://4chan.wrathfilledhate.net/menu/4chan_update.rdf</em:updateURL>
+		<em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDVpKu2wGRZ/HufraKlvoocGyqPfhE6UoivNnqELxfzXW8bqhpTW0ZDUJDSwC9VuDgKCvqYAAzaE8gbb/wRzStw0jH+sWGggKBZqXEuJu88ketqkcX3MNvO+nOO2F3aRJiqvbsaa7NsP4v7/oyTmr59PWRc+5NyCwjw01ZKQLEdGwIDAQAB</em:updateKey>
+		<em:aboutURL>chrome://4chan/content/about.xul</em:aboutURL>
+		<em:optionsURL>chrome://4chan/content/4chanConfig.xul</em:optionsURL>
+		<em:file>
+			<Description about="urn:mozilla:extension:file:4chan.jar">
+				<em:package>content/4chan/</em:package>
+				<em:skin>skin/classic/4chan/</em:skin>
+			</Description>
+		</em:file>
+
+		<em:targetApplication>
+			<Description>
+				<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+				<em:minVersion>1.0</em:minVersion>
+				<em:maxVersion>4.0</em:maxVersion>
+			</Description>
+		</em:targetApplication>
+
+	</Description>
+
+</RDF>

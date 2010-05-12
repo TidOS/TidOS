@@ -1,0 +1,24 @@
+style "panel"
+{
+	bg[NORMAL] = "#222222"
+	bg[ACTIVE] = "#444444"
+	bg[PRELIGHT] = "#a5d8ed"
+	bg_pixmap[NORMAL] = "panel.png"
+	fg[NORMAL] = "#fafafa"
+	fg[ACTIVE] = "#fafafa"
+	
+	xthickness = 2
+	ythickness = 1
+}
+
+widget "*PanelWidget*" 					style "panel"
+widget "*PanelApplet*" 					style "panel"
+widget "*fast-user-switch*"				style "panel"
+class "PanelApp*" 					style "panel"
+class "PanelToplevel*" 					style "panel"
+#widget_class "*Mail*" 					style "panel"
+widget_class "*notif*" 					style "panel"
+widget_class "*Notif*" 					style "panel"
+
+widget "*Xfce*Panel*" style "panel"
+class "*Xfce*Panel*" style "panel"

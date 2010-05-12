@@ -1,0 +1,36 @@
+#stylish-toolbar-button {
+	list-style-image: url("chrome://stylish/skin/s1-24.png");
+}
+toolbar[iconsize="small"] #stylish-toolbar-button {
+	list-style-image: url("chrome://stylish/skin/s1-16.png");
+}
+
+#stylish-toolbar-button[styles-applied~="global"] {
+	list-style-image: url("chrome://stylish/skin/s2-24.png");
+}
+toolbar[iconsize="small"] #stylish-toolbar-button[styles-applied~="global"] {
+	list-style-image: url("chrome://stylish/skin/s2-16.png");
+}
+
+#stylish-toolbar-button[styles-applied~="site"] {
+	list-style-image: url("chrome://stylish/skin/s3-24.png");
+}
+toolbar[iconsize="small"] #stylish-toolbar-button[styles-applied~="site"] {
+	list-style-image: url("chrome://stylish/skin/s3-16.png");
+}
+
+
+#stylish-panel {
+	list-style-image: url("chrome://stylish/skin/s1-16.png");
+}
+#stylish-panel[styles-applied~="global"] {
+	list-style-image: url("chrome://stylish/skin/s2-16.png");
+}
+#stylish-panel[styles-applied~="site"] {
+	list-style-image: url("chrome://stylish/skin/s3-16.png");
+}
+
+/* Things that don't make sense in a non-browser */
+#messengerWindow #stylish-find-styles, #messengerWindow #stylish-write-style-menu, #messengerWindow #stylish-panel {
+	display: none;
+}

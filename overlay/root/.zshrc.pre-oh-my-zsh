@@ -1,0 +1,368 @@
+# {{{ User settings
+
+# {{{ Environment
+#export PATH="/usr/lib/cw:$PATH"
+export PATH=$PATH:~/code/bin
+export HISTFILE=~/.zsh_history
+export HISTSIZE=10000
+export SAVEHIST=10000
+export LESSHISTFILE="-"
+export PAGER="less"
+export VISUAL="emacsclient"
+export EDITOR=$VISUAL
+export BROWSER="firefox"
+export XTERM="urxvt"
+# }}}
+
+# {{{ Mail settings
+export MAIL=~/mail/Inbox
+export MAILCHECK=300
+# }}}
+
+
+# {{{ Dircolors
+#     - with rxvt-256color support
+#eval `dircolors -b ~/.dir_colors`
+# }}}
+
+# {{{ Manual pages
+#     - colorize, since man-db fails to do so
+export LESS_TERMCAP_mb=$'\E[01;31m'   # begin blinking
+export LESS_TERMCAP_md=$'\E[01;31m'   # begin bold
+export LESS_TERMCAP_me=$'\E[0m'       # end mode
+export LESS_TERMCAP_se=$'\E[0m'       # end standout-mode
+export LESS_TERMCAP_so=$'\E[1;33;40m' # begin standout-mode - info box
+export LESS_TERMCAP_ue=$'\E[0m'       # end underline
+export LESS_TERMCAP_us=$'\E[1;32m'    # begin underline
+# }}}
+
+# {{{ Aliases
+
+# {{{ Main
+alias pacman=pacman-color
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ls='ls -aF --color=always'
+alias ll='ls -l'
+alias lfi="ls -l | egrep -v '^d'"
+alias ldi="ls -l | egrep '^d'"
+alias lst="ls -htl | grep $(date +%Y-%m-%d)"
+alias grep='grep --color=always'
+alias cp='cp -ia'
+alias mv='mv -i'
+#alias rm='rm -i'
+alias cls='clear'
+alias upmem='ps -aux | sort -k 6'
+alias top='htop'
+alias psg='ps auxw | grep -i '
+alias psptree='ps auxwwwf'
+alias df='df -hT'
+alias du='du -hc'
+alias dus='du -S | sort -n'
+alias free='free -m'
+alias su='su - '
+alias rehash='hash -r'
+alias eject='eject -v '
+alias retract='eject -t -v '
+alias vuser='fuser -v '
+alias ping='ping -c 5'
+alias more='less'
+alias mc='. /usr/share/mc/bin/mc-wrapper.sh -x'
+alias links='links ~/.links/startpage.html'
+alias lynx='\links ~/.links/startpage.html'
+alias sripper='~/code/bash/sripper.sh'
+alias cplay='cplay -v'
+alias xtr='extract'
+alias screen='screen -U -l'
+alias scr='screen -r'
+alias scd='screen -rd'
+alias sat='date +%R'
+alias bat='acpitool -b'
+alias calc='bc -l <<<'
+alias iodrag='ionice -c3 nice -n19'
+alias spell='aspell -a <<< '
+alias ec='emacsclient -a emacs -n '
+alias ect='emacsclient -a emacs -t '
+alias keyshare='synergys -f --config /etc/synergy.conf'
+alias xpop='xprop | grep --color=none "WM_WINDOW_ROLE\|WM_CLASS" | xmessage -file -'
+# }}}
+
+# {{{ Pacman
+alias pacsy='sudo pacman -Sy'               # Sync & Update
+alias pacup='sudo pacman -Syu'              # Sync, Update & Upgrade
+alias pacdg='sudo pacman -Syuu'             # Sync, Update & Downgrade
+alias paclu='pacman -Qu'                    # List upgradeable
+alias pacin='sudo pacman -S'                # Install a specific package
+alias pacnd='sudo pacman -Sd'               # Install a package but ignore deps
+alias pacrm='sudo pacman -Rns'              # Remove a specific package
+alias pacrd='sudo pacman -Rd'               # Remove a package but ignore deps
+alias pacss='pacman -Ss'                    # Search for a package
+alias pacsl='pacman -Qs'                    # Search for a package localy
+alias pacsi='pacman -Si'                    # Package info
+alias pacqi='pacman -Qi'                    # Package local info
+alias pacls='pacman -Ql'                    # List files in a package
+alias pacui='pacman -Qm'                    # List localy built packages
+alias pacfi='pacman -Qo'                    # Which package file belongs to
+alias paccl='sudo pacman -Scc'              # Fully clean the package cache
+alias pacdl='sudo pacman -Sw'               # Download a package without installing
+alias paclo='pacman -Qdt'                   # List package orphans
+alias paclog='pacman -Qc'                   # Package changelog
+# }}}
+
+# {{{ Slurpy
+alias aurup='slurpy -c -u -d'               # Sync, Update & Download
+alias aurlu='slurpy -c -u'                  # Update & List upgradeable
+alias aurss='slurpy -c -s'                  # Search for a package
+alias aursi='slurpy -c -i'                  # Package info
+alias aurdl='slurpy -c -d'                  # Download a package without installing
+# }}}
+
+# {{{ Swaret
+alias swup='sudo swaret --update --upgrade' # Sync, Update & Upgrade
+alias swsy='sudo swaret --update'           # Sync & Update
+alias swlu='sudo swaret --list -u'          # List upgradeable
+alias swin='sudo swaret --install'          # Install a specific package
+alias swrm='sudo swaret --remove'           # Remove a specific package
+alias swss='sudo swaret --search'           # Search for a package
+swsl() { sudo swaret --search $1 -i }       # Search for a package localy
+swsi() { sudo swaret --show $1 -p }         # Package info
+swqi() { sudo swaret --show $1 -i }         # Package local info
+swls() { less "$(locate /var/log/packages/$1)" } # List files in a package
+swfi() { grep $1 /var/log/packages/* }      # Which package file belongs to
+alias swui='sudo swaret --search aic -i'    # List localy built packages
+alias swcl='sudo swaret --purge'            # Fully clean the package cache
+alias swdl='sudo swaret --get'              # Download a package without installing
+alias swlog='sudo swaret --changelog'       # Package changelog
+# }}}
+# }}}
+
+# {{{ Completion
+compctl -k '(add delete draft edit list import preview publish update)' nb
+# }}}
+
+# {{{ Functions
+function web () { $BROWSER "http://yubnub.org/parser/parse?command=$*" }
+function pmem () { ps -o rss,comm -p $(pgrep $1) }
+function dsync () { rsync -lprt --progress --stats --delete "$1/" "$2/" }
+
+function x () {
+    if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]]; then
+        startx
+        logout
+    fi
+}
+
+function extract () {
+    if [[ -z "$1" ]]; then
+        print -P "Usage: extract filename"
+        print -P "Extract a given file based on the extension."
+    elif [[ -f "$1" ]]; then
+        case "$1" in
+            *.tbz2 | *.tar.bz2) tar -xvjf  "$1"     ;;
+            *.txz | *.tar.xz)   tar -xvJf  "$1"     ;;
+            *.tgz | *.tar.gz)   tar -xvzf  "$1"     ;;
+            *.tar | *.cbt)      tar -xvf   "$1"     ;;
+            *.zip | *.cbz)      unzip      "$1"     ;;
+            *.rar | *.cbr)      unrar x    "$1"     ;;
+            *.arj)              unarj x    "$1"     ;;
+            *.ace)              unace x    "$1"     ;;
+            *.bz2)              bunzip2    "$1"     ;;
+            *.xz)               unxz       "$1"     ;;
+            *.gz)               gunzip     "$1"     ;;
+            *.7z)               7z x       "$1"     ;;
+            *.Z)                uncompress "$1"     ;;
+            *.gpg)        gpg -d "$1" | tar -xvzf - ;;
+            *) echo "Error: failed to extract '$1'" ;;
+        esac
+    else
+        echo "Error: '$1' is not a valid file for extraction"
+    fi
+}
+# }}}
+# }}}
+
+
+# {{{ ZSH settings
+setopt emacs
+setopt nohup
+setopt autocd
+setopt cdablevars
+#setopt ignoreeof
+setopt nobgnice
+setopt nobanghist
+setopt noclobber
+setopt shwordsplit
+#setopt mailwarning
+setopt interactivecomments
+setopt autopushd pushdminus pushdsilent pushdtohome
+setopt histreduceblanks histignorespace inc_append_history
+#
+# new style completion system
+autoload -U compinit; compinit
+# list of completers to use
+zstyle ':completion:*' completer _complete _match _approximate
+# allow approximate
+zstyle ':completion:*:match:*' original only
+zstyle ':completion:*:approximate:*' max-errors 1 numeric
+# selection prompt as menu
+zstyle ':completion:*' menu select=1
+# menuselection for pid completion
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*' force-list always
+zstyle ':completion:*:processes' command 'ps -au$USER'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;32'
+# cd don't select parent dir
+zstyle ':completion:*:cd:*' ignore-parents parent pwd
+# complete with colors
+zstyle ':completion:*' list-colors ''
+# }}}
+
+
+# {{{ Prompt settings
+function precmd {
+    ###
+    # terminal width to one less than the actual width for lineup
+    local TERMWIDTH
+    (( TERMWIDTH = ${COLUMNS} - 1 ))
+    ###
+    # truncate the path if it's too long
+    PR_FILLBAR=""
+    PR_PWDLEN=""
+    local promptsize=${#${(%):---(%n@%m:%l)---()--}}
+    local pwdsize=${#${(%):-%~}}
+    if [[ "$promptsize + $pwdsize" -gt $TERMWIDTH ]]; then
+	((PR_PWDLEN=$TERMWIDTH - $promptsize))
+    else
+        PR_FILLBAR="\${(l.(($TERMWIDTH - ($promptsize + $pwdsize)))..${PR_HBAR}.)}"
+    fi
+}
+###
+# set the window title in screen to the currently running program
+setopt extended_glob
+function preexec () {
+    if [[ "$TERM" == "screen-256color" ]]; then
+        local CMD=${1[(wr)^(*=*|sudo|-*)]}
+        echo -n "\ek$CMD\e\\"
+    fi
+}
+function setprompt () {
+    ###
+    # need this so the prompt will work
+    setopt prompt_subst
+    ###
+    # try to use colors
+    autoload colors zsh/terminfo
+    if [[ "$terminfo[colors]" -ge 8 ]]; then
+        colors
+    fi
+    for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
+	eval PR_$color='%{$terminfo[bold]$fg[${(L)color}]%}'
+	eval PR_LIGHT_$color='%{$fg[${(L)color}]%}'
+	(( count = $count + 1 ))
+    done
+    PR_NO_COLOUR="%{$terminfo[sgr0]%}"
+    ###
+    # try to use extended characters to look nicer
+    typeset -A altchar
+    set -A altchar ${(s..)terminfo[acsc]}
+    PR_SET_CHARSET="%{$terminfo[enacs]%}"
+    PR_SHIFT_IN="%{$terminfo[smacs]%}"
+    PR_SHIFT_OUT="%{$terminfo[rmacs]%}"
+    PR_HBAR=${altchar[q]:--}
+    PR_ULCORNER=${altchar[l]:--}
+    PR_LLCORNER=${altchar[m]:--}
+    PR_LRCORNER=${altchar[j]:--}
+    PR_URCORNER=${altchar[k]:--}
+    ###
+    # set titlebar text on a terminal emulator
+    case $TERM in
+	rxvt*)
+            PR_TITLEBAR=$'%{\e]0;%(!.*ROOT* | .)%n@%m:%~ | ${COLUMNS}x${LINES} | %y\a%}'
+	    ;;
+	screen*)
+            PR_TITLEBAR=$'%{\e_screen \005 (\005t) | %(!.*ROOT* |.)%n@%m:%~ | ${COLUMNS}x${LINES} | %y\e\\%}'
+            # ensure SSH agent is still usable after an X restart
+	    ;;
+	*)
+            PR_TITLEBAR=''
+	    ;;
+    esac
+    ###
+    # Linux console and Emacs ansi-term get simpler prompts, the rest have:
+    #   - (user@hostname:tty)--($PWD) and an exit code of the last command
+    #   - right hand prompt which makes room if the command line grows past it
+    #   - PS2 continuation prompt to match PS1 in color
+    case $TERM in
+        dumb)
+            unsetopt zle
+            PROMPT='%n@%m:%~%% '
+            ;;
+	eterm-color)
+            PROMPT='$PR_YELLOW%n$PR_WHITE:%~$PR_NO_COLOUR%% '
+	    ;;
+        linux)
+            # zenburn for the Linux console
+            echo -en "\e]P01e2320" #zen-black (norm. black)
+            echo -en "\e]P8709080" #zen-bright-black (norm. darkgrey)
+            echo -en "\e]P1705050" #zen-red (norm. darkred)
+            echo -en "\e]P9dca3a3" #zen-bright-red (norm. red)
+            echo -en "\e]P260b48a" #zen-green (norm. darkgreen)
+            echo -en "\e]PAc3bf9f" #zen-bright-green (norm. green)
+            echo -en "\e]P3dfaf8f" #zen-yellow (norm. brown)
+            echo -en "\e]PBf0dfaf" #zen-bright-yellow (norm. yellow)
+            echo -en "\e]P4506070" #zen-blue (norm. darkblue)
+            echo -en "\e]PC94bff3" #zen-bright-blue (norm. blue)
+            echo -en "\e]P5dc8cc3" #zen-purple (norm. darkmagenta)
+            echo -en "\e]PDec93d3" #zen-bright-purple (norm. magenta)
+            echo -en "\e]P68cd0d3" #zen-cyan (norm. darkcyan)
+            echo -en "\e]PE93e0e3" #zen-bright-cyan (norm. cyan)
+            echo -en "\e]P7dcdccc" #zen-white (norm. lightgrey)
+            echo -en "\e]PFffffff" #zen-bright-white (norm. white)
+            # avoid 'artefacts'
+            #clear
+            #
+            PROMPT='$PR_GREEN%n@%m$PR_WHITE:$PR_YELLOW%l$PR_WHITE:$PR_RED%~$PR_YELLOW%%$PR_NO_COLOUR '
+            ;;
+	*)
+            PROMPT='$PR_SET_CHARSET$PR_STITLE${(e)PR_TITLEBAR}\
+$PR_GREEN$PR_SHIFT_IN$PR_ULCORNER$PR_GREEN$PR_HBAR$PR_SHIFT_OUT(\
+$PR_GREEN%(!.%SROOT%s.%n)$PR_GREEN@%m$PR_WHITE:$PR_YELLOW%l\
+$PR_GREEN)$PR_SHIFT_IN$PR_HBAR$PR_GREEN$PR_HBAR${(e)PR_FILLBAR}$PR_GREEN$PR_HBAR$PR_SHIFT_OUT(\
+$PR_RED%$PR_PWDLEN<...<%~%<<$PR_GREEN)$PR_SHIFT_IN$PR_HBAR$PR_GREEN$PR_URCORNER$PR_SHIFT_OUT\
+
+$PR_GREEN$PR_SHIFT_IN$PR_LLCORNER$PR_GREEN$PR_HBAR$PR_SHIFT_OUT(\
+%(?..$PR_RED%?$PR_WHITE:)%(!.$PR_RED.$PR_YELLOW)%#$PR_GREEN)$PR_NO_COLOUR '
+
+            RPROMPT=' $PR_GREEN$PR_SHIFT_IN$PR_HBAR$PR_GREEN$PR_LRCORNER$PR_SHIFT_OUT$PR_NO_COLOUR'
+
+            PS2='$PR_GREEN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT\
+$PR_GREEN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT(\
+$PR_YELLOW%_$PR_GREEN)$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT\
+$PR_GREEN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_NO_COLOUR '
+            ;;
+    esac
+}
+
+# Prompt init
+setprompt
+# }}}
+# Path to your oh-my-zsh configuration.
+export ZSH=$HOME/.oh-my-zsh
+
+# Set to the name theme to load.
+# Look in ~/.oh-my-zsh/themes/
+export ZSH_THEME="jnrowe"
+
+# Set to this to use case-sensitive completion
+# export CASE_SENSITIVE="true"
+
+# Comment this out to disable weekly auto-update checks
+# export DISABLE_AUTO_UPDATE="true"
+
+# Uncomment following line if you want to disable colors in ls
+# export DISABLE_LS_COLORS="true"
+source $ZSH/oh-my-zsh.sh
+
+# Customize to your needs...
+export PATH=/bin:/usr/bin:/sbin:/usr/sbin:/opt/java/bin:/opt/java/jre/bin:/opt/kde/bin:/usr/bin/perlbin/site:/usr/bin/perlbin/vendor:/usr/bin/perlbin/core:/opt/qt/bin:/home/jordan/code/bin
+

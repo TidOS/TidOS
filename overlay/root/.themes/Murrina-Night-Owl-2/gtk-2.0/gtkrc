@@ -1,0 +1,398 @@
+# Murrina Night Owl by etnlIcarus. 
+# Originally based on Murrina Black by icrave and code snipits from a dozen other people.
+
+#gtk-icon-sizes="gtk-small-toolbar=18,18:gtk-large-toolbar=18,18:gtk-menu=10,10:gtk-button=16,16"
+
+style "theme-default"
+{
+	GtkButton		::default_border    = { 0, 0, 0, 0 }
+	GtkPaned		::handle_size       = 4
+	GtkRange		::slider_width      = 9
+	GtkRange		::stepper_size      = 8
+	GtkRange		::trough-border     = 2
+
+	GtkScrollbar		::min_slider_length = 15
+	GtkCheckButton		::indicator_size    = 12
+	GtkMenuBar		::internal-padding  = 0
+	GtkTreeView		::expander_size     = 8
+	GtkExpander		::expander_size     = 8
+	GtkScale		::slider-length     = 16
+	GtkScale		::slider-width         = 9
+	GtkNotebook		::tab-curvature     = 2
+	
+	GtkMenu			::horizontal-padding   = 0
+	GtkMenu			::vertical-padding     = 0
+	GtkMenuItem::arrow-scaling = 0.5
+	GtkArrow::arrow-scaling = 0.6
+	GtkCombo::arrow-scaling = 0.6
+	GtkScrollbar::has-secondary-backward-stepper = 1
+  
+	xthickness = 0
+	ythickness = 0
+
+ 	fg[NORMAL]			= "#afafaf" 	# Metacity and mouseover, Most text
+	fg[PRELIGHT]    	  	= "#ffffff" 	# Text when mouseover
+	fg[ACTIVE]	  		= "#afafaf" 	# Text when mouseclicking button, Tabs, Active window list
+	fg[SELECTED]    	  	= "#cfcfcf" 	# Metacity X when window selected
+	fg[INSENSITIVE]  	 	= "#505050" 	# Insensitive Text
+
+	bg[NORMAL]	  		= "#1a1a1a" 	# Normal Background, inactive Metacity bar, buttons
+	bg[PRELIGHT]	  		= "#292929" 	# Mouseover buttons
+	bg[ACTIVE]	  		= "#232323" 	# Mouseclicking, Tabs, active window list
+	bg[SELECTED]			= "#2a2a2a" 	# Metacity Bar
+	bg[INSENSITIVE] 	  	= "#252525" 	# Insensitive buttons
+	
+	base[NORMAL]			= "#232323" 	# Background, most
+	base[PRELIGHT]			= "#272727" 	# Mouseover menu
+	base[ACTIVE]	  		= "#303030" 	# Menu active item in inactive window
+	base[SELECTED]			= "#303030" 	# Menu active item in active window
+	base[INSENSITIVE] 		= "#252525" 	# Background, insensitive
+	
+	text[NORMAL]	  		= "#a1a1a1" 	# Text in window
+	text[PRELIGHT]			= "#ffffff" 	# Text on Mouseover
+	text[ACTIVE]	  		= "#cfcfcf" 	# Active text in inactive window
+	text[SELECTED]  	  	= "#ffffff" 	# Active text in active window
+	text[INSENSITIVE]	 	= "#505050" 	# Unknown
+
+
+  	engine "murrine" 
+  	{
+		rgba = FALSE
+		scrollbarstyle = 3				# Enable or disable circles, stripes, handles
+		listviewstyle = 0 				# 0 = nothing, 1 = dotted
+		scrollbar_color = "#2f2f2f"
+		contrast = 0.5
+		glazestyle = 0  				# 0 = flat hilight, 1 = curved hilight, 2 = concave style, 3 = top curved 		hilight, 4 = beryl style
+		lightborder_shade = 1.4
+		lightborderstyle = 0
+		highlight_shade = 1.2
+		menustyle = 0
+		style = 0 				# 0 = flat, 1 = glassy, 2 = gradient, 3 = striped
+		menubaritemstyle = 1 				# 0 = menuitem look, 1 = button look
+		menuitemstyle = 2 				# 0 = flat, 1 = glassy, 2 = striped
+		listviewheaderstyle = 0 			# 0 = flat, 1 = glassy, 2 = raised
+		roundness = 0 					# 0 = squared, 1 = old default, more will increase roundness
+		toolbarstyle = 0
+		stepperstyle = 1
+    		animation = TRUE 				# FALSE = disabled, TRUE = enabled
+		gradients = TRUE
+		reliefstyle = 0					# Active button look: 0 flat, 1 inset, 2 shadow
+ 	 }
+}
+
+class "GtkWidget"      style "theme-default"
+
+
+
+
+
+style "theme-wide" = "theme-default"
+{
+	xthickness 		= 2
+	ythickness 		= 2
+}
+
+class "GtkFrame"       style "theme-wide"
+
+
+
+
+### ENTRY BOXES ###
+
+style "theme-entry" = "theme-default"
+{
+	bg[SELECTED]		= "#202020"
+#	bg[NORMAL]		= "#222222"
+	xthickness 		= 2
+	ythickness 		= 2
+}
+
+class "GtkEntry"       style "theme-entry"
+
+### END ###
+
+
+
+### SPINBUTTONS ###
+
+style "theme-spinbutton" = "theme-entry"
+
+{
+#	bg[NORMAL]		= "#1f1f1f"
+	xthickness 		= 3
+	ythickness 		= 3
+}
+
+class "GtkSpinButton"  style "theme-spinbutton"
+
+### END ###
+
+
+
+### BUTTONS ###
+
+style "theme-button"
+{
+	fg[ACTIVE]		= "#ffffff"
+	fg[NORMAL]		= "#ffffff"
+	bg[NORMAL]		= "#1b1b1b" #222222 #1f1f1f
+	bg[ACTIVE]		= "#303030"
+	bg[PRELIGHT]		= "#333333"
+}
+
+class "GtkButton"      style "theme-button"
+class "GtkScale"       style "theme-button"
+class "GtkCombo"       style "theme-button"
+class "GtkRange"       style "theme-button"
+
+style "theme-notebook-button"
+{
+	bg[NORMAL]		= "#1e1e1e"
+}
+
+widget_class "*<GtkNotebook>*<GtkButton>" style "theme-notebook-button"
+widget_class "*<GtkNotebook>*<GtkScale>" style "theme-notebook-button"
+widget_class "*<GtkNotebook>*<GtkCombo>" style "theme-notebook-button"
+widget_class "*<GtkNotebook>*<GtkRange>" style "theme-notebook-button"
+widget_class "*<GtkNotebook>*<GtkSpinButton>" style "theme-notebook-button"
+widget_class "*<GtkNotebook>*<GtkEntry>" style "theme-notebook-button"
+
+### END ###
+
+
+
+### NOTEBOOKS ###
+
+style "theme-notebook" = "theme-wide"
+{
+	fg[ACTIVE]		= "#888888"
+	bg[NORMAL]		= "#202020"
+	bg[ACTIVE]		= "#1a1a1a"
+}
+
+class "GtkNotebook"    style "theme-notebook"
+widget_class "*<GtkNotebook>*<GtkEventBox>" style "theme-notebook"
+widget_class "*<GtkNotebook>*<GtkViewport>" style "theme-notebook"
+widget_class "*<GtkNotebook>*<GtkLayout>"  style "theme-notebook"
+widget_class "*<GtkNotebook>*<GtkLabel>"  style "theme-notebook"
+
+### END ###
+
+
+
+
+
+style "theme-checkbox-label"
+{
+	fg[ACTIVE]		= "#bfbfbf"
+}
+
+widget_class "*<GtkCheckButton>*<GtkLabel>" style "theme-checkbox-label"
+
+
+
+
+
+style "theme-tasklist" = "theme-default"
+{
+	xthickness 		= 4
+	ythickness 		= 4
+#	fg[ACTIVE] 		= "#ffffff"
+#	bg[NORMAL] 		= "#404040"
+}
+
+
+
+### MENU ###
+
+style "theme-menu" = "theme-default"
+{
+	xthickness 		= 0
+	ythickness 		= 0
+	bg[NORMAL] 		= "#080808"
+#	text[NORMAL]		= "#ffffff"
+}
+
+
+class "GtkMenu"        style "theme-menu"
+
+### END ###
+
+
+
+### MENU ITEM ###
+
+style "theme-menu-item" = "theme-default"
+{
+	ythickness 		= 2
+	fg[PRELIGHT] 		= "#ffffff"
+	text[PRELIGHT] 		= "#ffffff"
+	fg[NORMAL]		= "#cfcfcf"
+	bg[SELECTED] 		= "#383838" #404040
+	bg[NORMAL] 		= "#0a0a0a"
+}
+
+class "GtkMenuItem"    style "theme-menu-item"
+widget_class "*MenuItem.*" style "theme-menu-item"
+
+### END ###
+
+
+
+### MENUBAR ###
+
+style "theme-menubar" = "theme-default"
+{
+}
+
+class "*MenuBar*"      style "theme-menubar"
+
+### END ###
+
+
+
+
+
+style "theme-menubar-item" = "theme-default"
+{
+	ythickness 		= 3
+	bg[PRELIGHT] 		= "#080808"
+	bg[SELECTED] 		= "#080808"
+}
+
+widget_class "*MenuBar.*"  style "theme-menubar-item"
+
+
+
+
+
+style "theme-tree" = "theme-default"
+{
+	xthickness 		= 0
+	ythickness 		= 0
+        bg[NORMAL] 		= "#232323"
+        base[INSENSITIVE] 	= "#353535"
+}
+
+widget_class "*.<GtkTreeView>.<GtkButton>" style "theme-tree"
+widget_class "*.<GtkCTree>.<GtkButton>" style "theme-tree"
+widget_class "*.<GtkList>.<GtkButton>" style "theme-tree"
+widget_class "*.<GtkCList>.<GtkButton>" style "theme-tree"
+
+
+
+
+
+style "theme-frame-title" = "theme-default"
+{
+}
+
+widget_class "*.GtkFrame.GtkLabel" style "theme-frame-title"
+
+
+
+
+
+style "theme-tooltip" = "theme-default"
+{
+	xthickness 		= 6
+	ythickness 		= 2
+	bg[NORMAL] 		= "#303030"
+	fg[NORMAL]		= "#ffffff"
+}
+
+widget "*GtkTooltip*" style "theme-tooltip"
+widget_class "*GtkTooltip*" style "theme-tooltip"
+class "*GtkTooltip*" style "theme-tooltip"
+
+widget "*gtk-tooltip*" style "theme-tooltip"
+widget_class "*gtk-tooltip*" style "theme-tooltip"
+class "*gtk-tooltip*" style "theme-tooltip"
+
+
+
+
+
+style "theme-progressbar" = "theme-default"
+{
+}
+
+class "GtkProgressBar" style "theme-progressbar"
+
+
+
+
+
+style "theme-combo" = "theme-button"
+{
+	xthickness 		= 1
+	ythickness 		= 1
+}
+
+widget_class "*.GtkComboBox.GtkButton" style "theme-combo"
+widget_class "*.GtkCombo.GtkButton"    style "theme-combo"
+
+
+
+### Panels ###
+
+style "panel" = "theme-default"
+{
+	bg[NORMAL] 		= "#0a0a0a"
+	bg[ACTIVE] 		= "#353535"
+	bg[SELECTED]		= "#353535"
+#	bg_pixmap[NORMAL] 	= "background.png"
+	fg[NORMAL] 		= "#cfcfcf"
+	text[NORMAL] 		= "#ffffff"
+	fg[ACTIVE] 		= "#ffffff"
+}
+
+widget_class "*Panel*" style "panel"
+widget "*xfce*Panel*" style "panel"
+class "*Panel*" style "panel"
+
+### END ###
+
+
+
+### DESKTOP ICONS IN XFCE4.X ###
+
+style "xfdesktop-icon-view" 
+{
+	XfdesktopIconView	::label-alpha 	= 00
+	
+	base[NORMAL] 		= "#101010"
+	base[SELECTED] 		= "#353535"
+	base[ACTIVE] 		= "#353535"
+
+	fg[NORMAL] 		= "#cfcfcf"
+	fg[SELECTED] 		= "#ffffff"
+	fg[ACTIVE] 		= "#ffffff"
+}
+
+widget_class "*XfdesktopIconView*" style "xfdesktop-icon-view"
+
+### END ###
+
+
+
+### SCROLLBAR FIX 4 FIREFOX + ARROW COLOURS ###
+
+style "theme-scrollbar" = "theme-default"
+{
+	fg[NORMAL] 		= "#909090"
+	fg[SELECTED] 		= "#707070"
+	fg[ACTIVE]		= "#707070"
+	fg[INSENSITIVE]		= "#707070"
+}
+
+class "GtkScrollbar"	style "theme-scrollbar"
+class "GtkVScrollbar"	style "theme-scrollbar"
+class "GtkHScrollbar"	style "theme-scrollbar"
+
+### END ###
+
+
+
+# tooltips stuff
+#widget_class "*.tooltips.*.GtkToggleButton" style "theme-tasklist"

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<boards>
+	<!-- Locations; DO NOT include a "/" at the end of the URL! -->
+	<location id="www.4chan" url="http://www.4chan.org"/>
+	<location id="dis.4chan" url="http://dis.4chan.org"/>
+	<location id="boards.4chan" url="http://boards.4chan.org" alturl="http://sys.4chan.org"/>
+	
+	<!-- 4chan Temporary Boards -->
+	<!-- <board id="4chan-con" class="imageboard" name="Conventions" category="4chan-temp-imageboards" location="boards.4chan" dir="con" trial="false"/> -->
+	<!-- 4chan Image Boards -->
+	<board id="4chan-3" class="imageboard" name="3DCG" category="4chan-imageboards" location="boards.4chan" dir="3" accesskey="3" trial="true"/>
+	<board id="4chan-a" class="imageboard" name="Anime &amp; Manga" category="4chan-imageboards" location="boards.4chan" dir="a" accesskey="a" trial="false"/>
+	<board id="4chan-adv" class="imageboard" name="Advice" category="4chan-imageboards" location="boards.4chan" dir="adv" trial="true"/>
+	<board id="4chan-an" class="imageboard" name="Animals &amp; Nature" category="4chan-imageboards" location="boards.4chan" dir="an" trial="false"/>
+	<board id="4chan-b" class="imageboard" name="Random" category="4chan-imageboards" location="boards.4chan" dir="b" accesskey="b" trial="false"/>
+	<board id="4chan-c" class="imageboard" name="Anime/Cute" category="4chan-imageboards" location="boards.4chan" dir="c" accesskey="c" trial="false"/>
+	<board id="4chan-cgl" class="imageboard" name="Cosplay &amp; EGL" category="4chan-imageboards" location="boards.4chan" dir="cgl" trial="false"/>
+	<board id="4chan-ck" class="imageboard" name="Food &amp; Cooking" category="4chan-imageboards" location="boards.4chan" dir="ck" trial="false"/>
+	<board id="4chan-cm" class="imageboard" name="Cute/Male" category="4chan-imageboards" location="boards.4chan" dir="cm" trial="false"/>
+	<board id="4chan-co" class="imageboard" name="Comics &amp; Cartoons" category="4chan-imageboards" location="boards.4chan" dir="co" trial="false"/>
+	<board id="4chan-d" class="imageboard" name="Hentai/Alternative" category="4chan-imageboards" location="boards.4chan" dir="d" accesskey="d" trial="false"/>
+	<board id="4chan-e" class="imageboard" name="Ecchi" category="4chan-imageboards" location="boards.4chan" dir="e" accesskey="e" trial="false"/>
+	<board id="4chan-fa" class="imageboard" name="Fashion" category="4chan-imageboards" location="boards.4chan" dir="fa" trial="false"/>
+	<board id="4chan-fit" class="imageboard" name="Health &amp; Fitness" category="4chan-imageboards" location="boards.4chan" dir="fit" trial="false"/>
+	<board id="4chan-g" class="imageboard" name="Technology" category="4chan-imageboards" location="boards.4chan" dir="g" accesskey="g" trial="false"/>
+	<board id="4chan-gif" class="imageboard" name="Animated GIF" category="4chan-imageboards" location="boards.4chan" dir="gif" trial="false"/>
+	<board id="4chan-h" class="imageboard" name="Hentai" category="4chan-imageboards" location="boards.4chan" dir="h" accesskey="h" trial="false"/>
+	<board id="4chan-int" class="imageboard" name="International" category="4chan-imageboards" location="boards.4chan" dir="int" trial="true"/>
+	<board id="4chan-hr" class="imageboard" name="High Resolution" category="4chan-imageboards" location="boards.4chan" dir="hr" trial="false"/>
+	<board id="4chan-jp" class="imageboard" name="Otaku Culture" category="4chan-imageboards" location="boards.4chan" dir="jp" trial="false"/>
+	<board id="4chan-k" class="imageboard" name="Weapons" category="4chan-imageboards" location="boards.4chan" dir="k" accesskey="k" trial="false"/>
+	<board id="4chan-lit" class="imageboard" name="Literature" category="4chan-imageboards" location="boards.4chan" dir="lit" trial="true"/>
+	<board id="4chan-m" class="imageboard" name="Mecha" category="4chan-imageboards" location="boards.4chan" dir="m" accesskey="m" trial="false"/>
+	<board id="4chan-mu" class="imageboard" name="Music" category="4chan-imageboards" location="boards.4chan" dir="mu" trial="false"/>
+	<board id="4chan-n" class="imageboard" name="Transportation" category="4chan-imageboards" location="boards.4chan" dir="n" accesskey="n" trial="false"/>
+	<board id="4chan-new" class="imageboard" name="News" category="4chan-imageboards" location="boards.4chan" dir="new" trial="true"/>
+	<board id="4chan-o" class="imageboard" name="Auto" category="4chan-imageboards" location="boards.4chan" dir="o" accesskey="o" trial="false"/>
+	<board id="4chan-p" class="imageboard" name="Photography" category="4chan-imageboards" location="boards.4chan" dir="p" accesskey="p" trial="false"/>
+	<board id="4chan-po" class="imageboard" name="Papercraft &amp; Origami" category="4chan-imageboards" location="boards.4chan" dir="po" trial="false"/>
+	<board id="4chan-r" class="imageboard" name="Request" category="4chan-imageboards" location="boards.4chan" dir="r" accesskey="r" trial="false"/>
+	<board id="4chan-r9k" class="imageboard" name="ROBOT9000" category="4chan-imageboards" location="boards.4chan" dir="r9k" trial="false"/>
+	<board id="4chan-s" class="imageboard" name="Sexy Beautiful Women" category="4chan-imageboards" location="boards.4chan" dir="s" accesskey="s" trial="false"/>
+	<board id="4chan-sci" class="imageboard" name="Science &amp; Math" category="4chan-imageboards" location="boards.4chan" dir="sci" trial="true"/>
+	<board id="4chan-sp" class="imageboard" name="Sports" category="4chan-imageboards" location="boards.4chan" dir="sp" trial="false"/>
+	<board id="4chan-t" class="imageboard" name="Torrents" category="4chan-imageboards" location="boards.4chan" dir="t" accesskey="t" trial="false"/>
+	<board id="4chan-tg" class="imageboard" name="Traditional Games" category="4chan-imageboards" location="boards.4chan" dir="tg" trial="false"/>
+	<board id="4chan-toy" class="imageboard" name="Toys" category="4chan-imageboards" location="boards.4chan" dir="toy" trial="false"/>
+	<board id="4chan-trv" class="imageboard" name="Travel" category="4chan-imageboards" location="boards.4chan" dir="trv" trial="false"/>
+	<board id="4chan-tv" class="imageboard" name="Television &amp; Film" category="4chan-imageboards" location="boards.4chan" dir="tv" trial="false"/>
+	<board id="4chan-u" class="imageboard" name="Yuri" category="4chan-imageboards" location="boards.4chan" dir="u" accesskey="u" trial="false"/>
+	<board id="4chan-v" class="imageboard" name="Video Games" category="4chan-imageboards" location="boards.4chan" dir="v" accesskey="v" trial="false"/>
+	<board id="4chan-w" class="imageboard" name="Anime/Wallpapers" category="4chan-imageboards" location="boards.4chan" dir="w" accesskey="w" trial="false"/>
+	<board id="4chan-wg" class="imageboard" name="Wallpapers/General" category="4chan-imageboards" location="boards.4chan" dir="wg" trial="false"/>
+	<board id="4chan-x" class="imageboard" name="Paranormal" category="4chan-imageboards" location="boards.4chan" dir="x" accesskey="x" trial="false"/>
+	<board id="4chan-y" class="imageboard" name="Yaoi" category="4chan-imageboards" location="boards.4chan" dir="y" accesskey="y" trial="false"/>
+	<!-- 4chan Drawing Boards -->
+	<board id="4chan-ic" class="imageboard" name="Artwork/Critique" category="4chan-drawingboards" location="boards.4chan" dir="ic" trial="false"/>
+	<board id="4chan-i" class="imageboard" name="Oekaki" category="4chan-drawingboards" location="boards.4chan" dir="i" accesskey="i" trial="false"/>
+	<!-- 4chan Upload Boards -->
+	<board id="4chan-f" class="uploadboard" name="Flash" category="4chan-uploadboards" location="boards.4chan" dir="f" accesskey="f" trial="false"/>
+	<!-- 4ch Lounge -->
+	<board id="4ch-lounge" class="shiichan" name="Lounge" category="4ch-lounge" location="dis.4chan" dir="lounge" accesskey="l" trial="false"/>
+	<board id="4ch-vip" class="shiichan" name="News for VIP" category="4ch-lounge" location="dis.4chan" dir="vip" trial="false"/>
+	<!-- 4ch General -->
+	<board id="4ch-newnew" class="shiichan" name="World News" category="4ch-newsandgeneral" location="dis.4chan" dir="newnew" trial="false"/>
+	<board id="4ch-newpol" class="shiichan" name="Politics" category="4ch-newsandgeneral" location="dis.4chan" dir="newpol" trial="false"/>
+	<board id="4ch-lang" class="shiichan" name="Foreign Language" category="4ch-newsandgeneral" location="dis.4chan" dir="lang" trial="false"/>
+	<board id="4ch-sci" class="shiichan" name="Science &amp; Math" category="4ch-newsandgeneral" location="dis.4chan" dir="sci" trial="false"/>
+	<board id="4ch-tech" class="shiichan" name="Technology" category="4ch-newsandgeneral" location="dis.4chan" dir="tech" trial="false"/>
+	<board id="4ch-food" class="shiichan" name="Food" category="4ch-newsandgeneral" location="dis.4chan" dir="food" trial="false"/>
+	<board id="4ch-sports" class="shiichan" name="Sports" category="4ch-newsandgeneral" location="dis.4chan" dir="sports" trial="false"/>
+	<!-- 4ch Computers -->
+	<board id="4ch-comp" class="shiichan" name="Computers" category="4ch-computer" location="dis.4chan" dir="comp" trial="false"/>
+	<board id="4ch-prog" class="shiichan" name="Programming" category="4ch-computer" location="dis.4chan" dir="prog" trial="false"/>
+	<board id="4ch-img" class="shiichan" name="Imageboards" category="4ch-computer" location="dis.4chan" dir="img" trial="false"/>
+	<!-- 4ch Art -->
+	<board id="4ch-sjis" class="shiichan" name="SJIS Room" category="4ch-art" location="dis.4chan" dir="sjis" trial="false"/>
+	<board id="4ch-tele" class="shiichan" name="Television &amp; Film" category="4ch-art" location="dis.4chan" dir="tele" trial="false"/>
+	<board id="4ch-book" class="shiichan" name="Books" category="4ch-art" location="dis.4chan" dir="book" trial="false"/>
+	<board id="4ch-music" class="shiichan" name="Music" category="4ch-art" location="dis.4chan" dir="music" trial="false"/>
+	<board id="4ch-anime" class="shiichan" name="Anime &amp; Manga" category="4ch-art" location="dis.4chan" dir="anime" trial="false"/>
+	<board id="4ch-carcom" class="shiichan" name="Cartoons &amp; Comics" category="4ch-art" location="dis.4chan" dir="carcom" trial="false"/>
+	<!-- 4ch Games -->
+	<board id="4ch-games" class="shiichan" name="Video Games" category="4ch-games" location="dis.4chan" dir="games" trial="false"/>
+</boards>

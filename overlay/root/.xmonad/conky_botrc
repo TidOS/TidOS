@@ -1,0 +1,93 @@
+# set to yes if you want Conky to be forked in the background
+background yes
+
+#border_margin 0
+border_width 0
+
+# Use Xft?
+use_xft no
+
+# Xft font when Xft is enabled
+font -*-gohufont-medium-*-*-*-*-*-*-*-*-*-*-*
+
+# Text alpha when using Xft
+# xftalpha 1
+
+# Update interval in seconds
+update_interval 1
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+own_window yes
+own_window_type dock
+own_window_transparent no
+#own_window_colour ffffff
+own_window_hints below
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 1280 13
+
+# Maximum width
+#maximum_width 900
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders yes
+
+# Draw borders around graphs
+draw_graph_borders no
+
+# Stippled borders?
+# stippled_borders 8
+
+# border margins
+# border_margin 2
+
+# border width
+# border_width 1
+
+# Default colors and also border colors
+default_color ffffff
+default_shade_color red
+default_outline_color green
+color1 a3c5e7
+color2 bbbbbb
+color3 c8c8c8
+color4 c7dff7
+color5 e9e9e9
+
+# Text alignment, other possible values are commented
+alignment bottom_right
+#alignment top_left
+#alignment bottom_left
+#alignment bottom_right
+#alignment none
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+gap_x 1
+gap_y 787
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+
+if_up_strictness address
+
+TEXT
+${color1}mpd$color ${color BFBFBF}${mpd_artist}${color} - ${color C3ECE9}$mpd_title${color} [${color FFE9C0}${mpd_album}$color] (${mpd_elapsed}/${mpd_length}) ${color3}:: ${color1}V${color} ${exec amixer get Master | awk '/Front Left:/ {print $5}' | tr '[]' ' ' | awk '{print $1}'} ${color3}:: ${if_up eth0}${color F4D8FF}eth0$color ${downspeed eth0} ${upspeed eth0}${endif}${color3}::${alignr}  ${color1}${time %k:%M.%d/%m}  

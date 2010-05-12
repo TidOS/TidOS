@@ -1,0 +1,8 @@
+[X-GNOME-Metatheme]
+Name=freezy
+Type=X-GNOME-Metatheme
+Comment=freezy linux theme
+Encoding=UTF-8
+GtkTheme=freezy
+MetacityTheme=freezy
+IconTheme=Freezy

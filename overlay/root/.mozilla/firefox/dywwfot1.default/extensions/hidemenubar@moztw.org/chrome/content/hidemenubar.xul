@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE window [
+<!ENTITY % browserDTD SYSTEM "chrome://browser/locale/browser.dtd" >
+%browserDTD;
+]>
+
+<overlay id="hideMenubarOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<toolbar type="menubar" id="toolbar-menubar" class="chromeclass-menubar" customizable="true"
+         defaultset="menubar-items"
+         mode="icons" iconsize="small" defaulticonsize="small"
+         toolbarname="&menubarCmd.label;"
+         accesskey="&menubarCmd.accesskey;"
+         context="toolbar-context-menu">
+</toolbar>
+
+<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js"/>
+<script type="application/x-javascript">
+<![CDATA[
+window.addEventListener("load",
+   function(event) {
+      var mainwin = document.getElementById("main-window");
+      var menubox = document.getElementById("menubar-items");
+      var toolbar = menubox.parentNode;
+      var menubar = menubox.firstChild;
+      var toolbox = toolbar.parentNode;
+
+      // handle: "autohide" property
+      toolbar.__defineGetter__("autohide",
+         function() {
+            return (toolbar.getAttribute("autohide") == "true");
+         }
+      );
+      toolbar.__defineSetter__("autohide",
+         function() {
+            if (arguments[0]) {
+               toolbar.setAttribute("autohide", "true");
+            } else {
+               toolbar.removeAttribute("autohide");
+            }
+         }
+      );
+
+      // handle: "inactive" property
+      toolbar.__defineGetter__("inactive",
+         function() {
+            return (toolbar.getAttribute("inactive") == "true");
+         }
+      );
+      toolbar.__defineSetter__("inactive",
+         function() {
+            if (arguments[0]) {
+               toolbar.setAttribute("inactive", "true");
+            } else {
+               toolbar.removeAttribute("inactive");
+            }
+         }
+      );
+
+      // handle: "mousehover" property
+      toolbar.__defineGetter__("hasMouseHover",
+         function() {
+            return (toolbar.getAttribute("mousehover") == "true");
+         }
+      );
+      toolbar.__defineSetter__("hasMouseHover",
+         function() {
+            if (arguments[0]) {
+               toolbar.setAttribute("mousehover", "true");
+            } else {
+               toolbar.removeAttribute("mousehover");
+            }
+         }
+      );
+
+      // handle: "popupshown" property
+      toolbar.__defineGetter__("hasPopup",
+         function() {
+            return (toolbar.getAttribute("popupshown") == "true");
+         }
+      );
+      toolbar.__defineSetter__("hasPopup",
+         function() {
+            if (arguments[0]) {
+               toolbar.setAttribute("popupshown", "true");
+            } else {
+               toolbar.removeAttribute("popupshown");
+            }
+         }
+      );
+
+      // handle: "focused" property
+      toolbar.__defineGetter__("hasFocus",
+         function() {
+            return (toolbar.getAttribute("focused") == "true");
+         }
+      );
+      toolbar.__defineSetter__("hasFocus",
+         function() {
+            if (arguments[0]) {
+               toolbar.setAttribute("focused", "true");
+            } else {
+               toolbar.removeAttribute("focused");
+            }
+         }
+      );
+
+      // handle: "menuactive" property
+      toolbar.__defineGetter__("hasMenuActive",
+         function() {
+            return (toolbar.getAttribute("menuactive") == "true");
+         }
+      );
+      toolbar.__defineSetter__("hasMenuActive",
+         function() {
+            if (arguments[0]) {
+               toolbar.setAttribute("menuactive", "true");
+            } else {
+               toolbar.removeAttribute("menuactive");
+            }
+         }
+      );
+
+      // implement: press "alt" key to control the menubar display
+      window.addEventListener("keydown",
+         function(event) {
+            if (toolbar.autohide) {
+               if ((event.keyCode == KeyEvent.DOM_VK_ALT) && !event.ctrlKey && !event.shiftKey && !event.metaKey) {
+                  toolbar._inactive = toolbar.inactive;
+                  toolbar._altKey = true;
+                  return;
+               }
+               delete toolbar._inactive;
+               delete toolbar._altKey;
+            }
+         }
+      , true);
+      window.addEventListener("keyup",
+         function(event) {
+            if (toolbar.autohide && toolbar._altKey) {
+               if ((event.keyCode == KeyEvent.DOM_VK_ALT) && !event.ctrlKey && !event.shiftKey && !event.metaKey) {
+                  toolbar.inactive = !toolbar._inactive;
+               }
+               delete toolbar._inactive;
+               delete toolbar._altKey;
+            }
+         }
+      , true);
+
+      // implement: prevent menubar collapse when mouse hover on it
+      toolbar.addEventListener("mouseover",
+         function(event) {
+            if (event.clientY < 0) return;
+            toolbar.hasMouseHover = true;
+         }
+      , true);
+      toolbar.addEventListener("mouseout",
+         function(event) {
+            if (event.clientY < 0) return;
+            tryHideMenubar();
+            toolbar.hasMouseHover = false;
+         }
+      , true);
+
+      // implement: prevent menubar collapse when menu popup
+      function isSubMenu(m) {
+         while (m = m.parentNode) {
+            if (m.localName == "menupopup" || m.localName == "popup") return true;
+         }
+         return false;
+      }
+      toolbar.addEventListener("popupshown",
+         function(event) {
+            if (isSubMenu(event.target)) return;
+            if (event.target.localName != "menupopup" && event.target.localName != "popup") return;
+            toolbar.hasPopup = true;
+         }
+      , true);
+      toolbar.addEventListener("popuphidden",
+         function(event) {
+            if (isSubMenu(event.target)) return;
+            if (event.target.localName != "menupopup" && event.target.localName != "popup") return;
+            tryHideMenubar();
+            toolbar.hasPopup = false;
+         }
+      , true);
+
+      // implement: prevent menubar collapse when input box was focused
+      toolbar.addEventListener("focus",
+         function(event) {
+            toolbar.scrollTop = 0; // [workaround]: toolbar.scrollTop < 0 problem (caused by pressing F6 to focus on menubar input box)
+            toolbar.hasFocus = true;
+         }
+      , true);
+      toolbar.addEventListener("blur",
+         function(event) {
+            tryHideMenubar();
+            toolbar.hasFocus = false;
+         }
+      , true);
+
+      // implement: prevent menubar collapse when menuitem was actived
+      menubar.addEventListener("DOMMenuItemActive",
+         function(event) {
+            if (event.target.parentNode != this) return;
+            toolbar.hasMenuActive = true;
+         }
+      , true);
+      menubar.addEventListener("DOMMenuItemInactive",
+         function(event) {
+            if (event.target.parentNode != this) return;
+            tryHideMenubar();
+            toolbar.hasMenuActive = false;
+         }
+      , true);
+
+      // implement: display all toolbars when customizing
+      toolbox.addEventListener("DOMAttrModified", function(event) {
+         if (event.target != this) return;
+         if (event.attrName == "customizing") {
+            for (var i=0; i<toolbox.childNodes.length; i++) {
+               var bar = toolbox.childNodes[i];
+               if (bar.getAttribute("type") == "menubar") continue;
+               if (bar.getAttribute("customizable") != "true") continue;
+               if (event.newValue == "true") {
+                  bar.setAttribute("customizing-collapsed", bar.collapsed);
+                  bar.collapsed = false;
+               } else {
+                  bar.collapsed = (bar.getAttribute("customizing-collapsed") == "true");
+                  bar.removeAttribute("customizing-collapsed");
+               }
+            }
+         }
+      }, true);
+
+      // function: tryShowMenubar
+      function tryShowMenubar() {
+         if (toolbar._beginHide) { clearTimeout(toolbar._beginHide); delete toolbar._beginHide; }
+         if (toolbar._beginShow) return;
+         if (toolbar.inactive == false) return;
+         if (mainwin.getAttribute("active") != "true") return;
+         if (toolbar.getAttribute("autohide") != "true") return;
+         if (toolbox.getAttribute("customizing") == "true") return;
+         toolbar._beginShow = setTimeout(function() {
+            toolbar.inactive = false;
+            clearTimeout(toolbar._beginShow);
+            delete toolbar._beginShow;
+         }, nsPreferences.getIntPref("hidemenubar.autoshow.delay.onshow", 0));
+      }
+
+      // function: tryHideMenubar
+      function tryHideMenubar() {
+         if (toolbar._beginShow) { clearTimeout(toolbar._beginShow); delete toolbar._beginShow; }
+         if (toolbar._beginHide) return;
+         if (toolbar.inactive == true) return;
+         if (mainwin.getAttribute("active") != "true") return;
+         if (toolbar.getAttribute("autohide") != "true") return;
+         if (toolbox.getAttribute("customizing") == "true") return;
+         toolbar._beginHide = setTimeout(function() {
+            if (!toolbar.hasFocus && !toolbar.hasPopup && !toolbar.hasMouseHover && !toolbar.hasMenuActive) {
+               toolbar.inactive = true;
+            }
+            clearTimeout(toolbar._beginHide);
+            delete toolbar._beginHide;
+         }, nsPreferences.getIntPref("hidemenubar.autoshow.delay.onhide", 0));
+      }
+
+      // implement: show the menubar when mouse move to the window title bar
+      window.addEventListener("mouseout", function(event) {
+         if (event.screenY >= toolbar.boxObject.screenY) return;
+         if (nsPreferences.getBoolPref("hidemenubar.autoshow", true)) {
+            var mouseY = event.screenY;
+            var toolbarY = toolbar.boxObject.screenY;
+            var offsetY = nsPreferences.getIntPref("hidemenubar.autoshow.titlebar.pixels", 0);
+            if ((mouseY < toolbarY) && (mouseY >= toolbarY - offsetY)) {
+               tryShowMenubar();
+               return;
+            }
+            if (toolbar._beginShow) { clearTimeout(toolbar._beginShow); delete toolbar._beginShow; }
+         }
+      }, true);
+
+      // implement: show the menubar when mouse hover on the browser window
+      window.addEventListener("mousemove", function(event) {
+         if (nsPreferences.getBoolPref("hidemenubar.autoshow", true)) {
+            var mouseY = event.screenY;
+            var toolbarY = toolbar.boxObject.screenY;
+            var offsetY = nsPreferences.getIntPref("hidemenubar.autoshow.menubar.pixels", 0);
+            if ((mouseY >= toolbarY) && (mouseY < toolbarY + offsetY)) {
+               tryShowMenubar();
+               return;
+            }
+            if (toolbar._beginShow) { clearTimeout(toolbar._beginShow); delete toolbar._beginShow; }
+         }
+      }, true);
+
+   }
+, false);
+]]>
+</script>
+
+</overlay>

@@ -1,0 +1,6 @@
+
+overlay	chrome://browser/content/browser.xul chrome://4chan/content/4chanOverlay.xul
+overlay	chrome://navigator/content/navigator.xul chrome://4chan/content/4chanOverlay.xul
+content	4chan jar:chrome/4chan.jar!/content/4chan/
+content	4chan jar:chrome/4chan.jar!/content/4chan/ contentaccessible=yes
+skin 4chan classic/1.0 jar:chrome/4chan.jar!/skin/classic/4chan/

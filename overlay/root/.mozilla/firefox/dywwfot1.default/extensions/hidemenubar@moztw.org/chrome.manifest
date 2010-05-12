@@ -1,0 +1,3 @@
+style		chrome://browser/content/browser.xul chrome://hidemenubar/content/hidemenubar.css
+overlay	chrome://browser/content/browser.xul chrome://hidemenubar/content/hidemenubar.xul
+content	hidemenubar	chrome/content/

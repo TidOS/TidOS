@@ -1,0 +1,973 @@
+// ==UserScript==
+// @name                /g/ + Last.fm
+// @namespace           http://pseudochron.com
+// @description         Tools combining 4chan's /g/ and last.fm
+// @include             http://*.4chan.org/g/*
+// ==/UserScript==
+
+/*********************
+
+Version 1.2.0       1/5/10
+	Added "Now Playing" feature: option to append current track to the "name" field
+		You need to edit the script's "Configuration" section to use a name other than "Anonymous"
+	Added Search feature: click the button to find all Last.fm threads on /g/
+	Edited the default "@include" to reflect subdomain change
+
+VERSION HISTORY:
+
+Version 1.1.1       7/31/09
+	Minor change to the way the profile list scrolls
+
+Version 1.1.0       3/20/09
+	Added option to list all profiles in stats, sorted by compatibility rank
+	Improved compatibility with the 4chan Extension "Quick Reply" feature
+	Now detects last.fm URLs anywhere in reply posts, including email field
+	Recognizes profile links that use foreign language domains (www.lastfm.de, www.lastfm.com.tr, etc)
+	Stats are affected only once by a profile posted multiple times in the thread
+	Stats show the number of errors, if any
+	Added "Overall artist chart" to the Post Helper
+
+Version 1.0.1       3/2/09
+	Set links to the profiles to open in new tab (target=_blank)
+
+Version 1.0.0       3/2/09      first official release
+	No longer need to edit the script to set your username, there will be a textbox on the page
+	"Post Helper" - links next to comment box that insert into the text:
+		your weekly top artist list  (uses weekly snapshot mode, not last 7 days)
+		the song that you are currently scrobbling
+		the URL of your last.fm profile
+	"Last.fm Thread Stats"
+		displays in reply mode in threads with at least one last.fm posted (besides your own)
+			 number of last.fm profiles and number of profiles with data loaded
+			 average compatibility with the users in that thread
+			 a list of the number of posts for each compatibility score
+
+Version 0.1.0       2/27/09     first beta test release
+	Displays next to any post that has a last.fm user profile url in it:
+		taste-o-meter compatibility and artists in common
+		link to load their top artists
+		friend icon if that user is your friend
+**************/
+
+/* CONFIGURATION */
+
+var POST_NAME = "rate my#$uw{$=";
+var NP_STRING = " | now playing: ";
+var POST_TRIP = ""; 			// remember to include the "#"
+
+/* (END CONFIG) */
+
+
+
+// global vars
+var scoreList = [];
+var compatCount = {"SUPER":0,"VERY HIGH":0,"HIGH":0,"MEDIUM":0,"LOW":0,"VERY LOW":0,"UNKNOWN":0};
+
+Number.prototype.toFixed=function(x) {
+   var temp=this;
+   temp=Math.round(temp*Math.pow(10,x))/Math.pow(10,x);
+   return temp;
+}
+
+Array.prototype.avg = function() {
+	var sum = 0;
+	var len = this.length;
+	for (var i = 0; i < len; i++) {
+		if (this[i] >= 0.0) {
+			sum += parseFloat(this[i]);
+		}
+	}
+	return sum/len;
+}
+
+function compareTaste(username,tdID,scriptUser,isDupe) {    
+	// First get the taste-o-meter score.
+	// We could get common artists with this request, but this method returns a flawed artist list so that's later.
+	// This uses the public last.fm API key that's meant for examples and I don't know if that is a bad idea
+	GM_xmlhttpRequest({
+		method: 'GET',
+//      url: 'http://ws.audioscrobbler.com/1.0/user/'+scriptUser+'/tasteometer.xml?with='+username,
+		url: 'http://ws.audioscrobbler.com/2.0/?method=tasteometer.compare&type1=user&type2=user&api_key=b25b959554ed76058ac220b7b2e0a026&limit=1&value1='+scriptUser+'&value2='+username,
+		headers: { 
+			'User-agent': 'Mozilla/4.0 (compatible) Greasemonkey',
+			'Accept': 'application/atom+xml,application/xml,text/xml', 
+		},
+		onload: function(response) {
+			elm = document.getElementById(tdID);
+			//var bq = document.createElement('blockquote');
+			var bq = elm.getElementsByTagName("blockquote")[0];
+			
+			var commArtistText = document.createElement('small');
+			var messageDiv = document.getElementById(tdID+"_m");
+			
+			var tasteXML = new DOMParser().parseFromString(response.responseText, "application/xml");
+			
+			if (response.status==200 && tasteXML.getElementsByTagName('score').length) {
+				var score = tasteXML.getElementsByTagName('score')[0].textContent;
+							
+				var compat = getCompatName(score);
+				var compatColor = getCompatColor(score);
+				
+				if (isDupe) {score = -2};
+				var postID = tdID.split("_")[1];
+				updateStats(score,username,postID);
+				messageDiv.textContent = '';
+				bq.innerHTML = "Your musical compatibility with <a target='_blank' href='http://www.last.fm/user/"+username+"'>"+username+"</a> is <strong style='color:"+compatColor+"'>"+compat+"</strong><br>"; 
+				createTopArtistButton(username,tdID);
+				
+				// Now get the common artists.
+				// This method could get the taste score, but it would use the old compatibility calculations which sometimes differ
+				GM_xmlhttpRequest({
+					method: 'GET',
+					url: 'http://ws.audioscrobbler.com/1.0/user/'+scriptUser+'/tasteometer.xml?with='+username,
+					headers: { 
+						'User-agent': 'Mozilla/4.0 (compatible) Greasemonkey',
+						'Accept': 'application/atom+xml,application/xml,text/xml', 
+					},
+					onload: function(response) {
+						var commArtistXML = new DOMParser().parseFromString(response.responseText, "application/xml");
+						
+						var artistList = commArtistXML.getElementsByTagName('name');
+						var commonArtists = '';
+						
+						if (artistList.length > 0) {
+							for (var i=0; i < artistList.length && i <5; i++) {
+								commonArtists += artistList[i].textContent;
+								if (i!=4 && (i<artistList.length-1))
+								{
+									if ( (i==3) || (i==artistList.length-2) )
+									{
+										commonArtists += " and ";
+									} else {
+										commonArtists += ", ";
+									}
+									
+								}
+									
+							}
+							commonArtists += ".";   
+							commArtistText.textContent = "Music you have in common includes " + commonArtists;
+			
+							bq.appendChild(commArtistText);
+						}
+					}
+				});
+			// if the xml didn't have a 'score' tag
+			} else if (tasteXML.getElementsByTagName('error').length) {
+				error = tasteXML.getElementsByTagName('error')[0].textContent;
+				messageDiv.innerHTML = "<strong class='error'>Error:</strong> "+error;
+				createRetryButton(username,tdID,scriptUser);
+			} else {
+				messageDiv.innerHTML = "<strong class='error'>Error loading data</strong>";
+				createRetryButton(username,tdID,scriptUser);
+			}
+		},
+		onerror: function(response) {
+			messageDiv = document.getElementById(tdID+"_m");
+			messageDiv.innerHTML = "<strong class='error'>Error loading data</strong>. (Status: " + response.status + response.statusText+")";
+			createRetryButton(username,tdID,scriptUser,isDupe);
+		}
+		 
+	});
+}
+
+function createRetryButton(username,id,scriptUser,isDupe) {
+//  elm = document.getElementById(id);
+	messageDiv = document.getElementById(id+"_m");
+	var retryButton = document.createElement('span');
+	retryButton.setAttribute("style", "cursor: pointer;");
+	retryButton.innerHTML = " [<a><u>retry</u></a>]";
+	messageDiv.appendChild(retryButton);    
+	retryButton.addEventListener('click', (function() { messageDiv.textContent="Loading..."; compareTaste(username,id,scriptUser,isDupe); }), false);
+}
+
+function createTopArtistButton(username,id) {
+	elm = document.getElementById(id);
+	var topArtistButton = document.createElement('small');
+	topArtistButton.setAttribute("style", "cursor: pointer;");
+	topArtistButton.innerHTML = "<a><u>Show top artists</u></a>";
+	topArtistButton.id = "b_" + id;
+	elm.appendChild(topArtistButton);   
+	topArtistButton.addEventListener('click', (function() { getTopArtists(username,id); topArtistButton.textContent=" Loading...";}), false);
+}
+
+function getTopArtists(username,id) {
+	elm = document.getElementById(id);
+	bq = elm.getElementsByTagName("blockquote")[0];
+//  bq = elm.firstChild;
+	
+	GM_xmlhttpRequest({
+		method: 'GET',
+		url: 'http://ws.audioscrobbler.com/2.0/user/'+username+'/topartists.xml',
+		headers: { 
+			'User-agent': 'Mozilla/4.0 (compatible) Greasemonkey',
+			'Accept': 'application/atom+xml,application/xml,text/xml', 
+		},
+		onload: function(response) {
+			var topArtistButton = document.getElementById("b_" + id);
+			topArtistButton.parentNode.removeChild(topArtistButton);
+			
+			var topArtistXML = new DOMParser().parseFromString(response.responseText, "application/xml");
+			var topArtistList = topArtistXML.getElementsByTagName('name');
+						
+			var topArtistString = [];
+			if (topArtistList.length) {
+				for (var i=0; i < topArtistList.length && i <10; i++) {
+					topArtistString[i] = ' ' + topArtistList[i].textContent;                        
+				}
+				
+				bq.innerHTML += "<p><strong>"+username+"'s top artists:</strong> " + topArtistString;
+			}
+		}
+	});
+}
+
+function checkFriendStatus(username,id,friendList) {
+	var friendIcon = document.createElement('img');
+	friendIcon.src = "http://cdn.last.fm/flatness/icons/profile/isfriend.png";
+	friendIcon.setAttribute('style','margin: 15px; position: absolute;');
+	
+	elm = document.getElementById(id);
+	
+	if ( friendList.indexOf(username.toLowerCase()) != -1 )
+	{
+		elm.insertBefore(friendIcon,elm.firstChild);
+	}
+}
+
+function lastfmInPost(element) {
+//  var regexp = /last.fm\/user\/([\w-]+)/ ;  // didn't work on foreign lang domains
+	var regexp = /last?.fm[\w.]*\/user\/([\w-]+)/;
+	var found;
+	if ( regexp.test(element.innerHTML) ) {
+		found = regexp.exec(element.innerHTML)[1];
+	}
+	return (found);
+}
+
+function analyzePost(bqElm, postUser, scriptUser) {
+	var username;
+	var elm = bqElm;
+	var isReply = (bqElm.parentNode.nodeName == "TD");
+	if (isReply) {              // the parentNode of the OP is the whole thread, can't do that
+		elm = bqElm.parentNode; // .parentNode to detect last.fm in email, subject, name
+	}
+	
+	if ( username = lastfmInPost(elm) ) {
+		// check for duplicates
+		var isDupe = (postUser.toSource().search(new RegExp('"'+username+'"',"i")) > -1);
+		
+		var lastfmElm;
+		// replies
+		if (isReply) { 
+			if (postUser) { postUser['l_'+elm.id] = username; }
+			lastfmElm = document.createElement('td');
+			lastfmElm.setAttribute('id', 'l_'+elm.id);
+		// thread topic posts
+		} else { 
+			var threadId;
+			var quoteA = elm.previousSibling;
+			while ( quoteA && !threadId) {
+				if (quoteA.childNodes[1] && quoteA.childNodes[1].getAttribute('class') == "quotejs") {
+					threadId = quoteA.childNodes[1].textContent;
+				} else {
+					quoteA = quoteA.previousSibling;
+				}
+			}
+			if (postUser) { postUser['l_'+threadId] = username; }
+			lastfmElm = document.createElement('div');
+			lastfmElm.setAttribute('class', 'reply lastfm');
+			lastfmElm.setAttribute('id', 'l_'+threadId);
+			lastfmElm.setAttribute('style', 'margin: auto; padding: 2px; width: 50%; clear: both;');
+		}
+		lastfmElm.innerHTML = "<blockquote><a target='_blank' href='http://www.last.fm/user/"+username+"'>"+username+"</a> </blockquote>";
+		elm.parentNode.insertBefore(lastfmElm, elm.nextSibling);
+		
+		var messageDiv = document.createElement('div');
+		messageDiv.setAttribute('id', lastfmElm.id + "_m");
+		lastfmElm.appendChild(messageDiv);
+		lastfmElm.setAttribute('class', 'reply lastfm');
+		
+		if (scriptUser) {
+			if (scriptUser.toLowerCase() == username.toLowerCase()) {
+				lastfmElm.setAttribute('class', 'replyhl lastfm');
+			} else {
+				messageDiv.textContent = "Loading...";
+				// load lastfm data
+				compareTaste(username,lastfmElm.id, scriptUser, isDupe);
+			}
+		} else {
+			createTopArtistButton(username,lastfmElm.id)
+			messageDiv.innerHTML = "<blockquote><small><a style='cursor: pointer;' onClick=document.getElementById('usernameText').focus()><u>Set your Last.fm username</u></a> to determine compatibility.</small></blockquote>";
+		}
+	if (!postUser) { postUser = username };
+	}   
+	return postUser;    
+}
+
+function toggleList(event) {
+	GM_setValue("listAllProfiles",event.target.checked);
+	for (compat in compatCount) {
+		if (compat != "UNKNOWN") {
+			var tr = document.getElementById("list " + compat.toLowerCase() ).parentNode;
+			if (event.target.checked && compatCount[compat]) {
+				tr.removeAttribute('style');
+			} else {
+				tr.setAttribute('style','display: none;');
+			}
+		}
+	}
+}
+
+function updateStats(score,user,post) {
+	if (String(window.location).match("mu/res")) {
+	//  var profilesSpan = document.getElementById("profiles");
+		var loadedSpan = document.getElementById("loaded");
+		var averageTD = document.getElementById("average");
+		var compat = getCompatName(score);
+		
+		if ( compat != "UNKNOWN" ) {
+			var bdownTD = document.getElementById( compat.toLowerCase() );
+	//      bdownTD.textContent = ++compatCount[compat] + " (" + (compatCount[compat]/scoreList.length*100).toFixed(1) + "%)";
+			bdownTD.textContent = ++compatCount[compat]; // percentages weren't correct anyway as scoreList.length became outdated
+			
+//          GM_log('>>'+post+'\t'+user);
+			var listTD = document.getElementById( "list " + compat.toLowerCase() );
+			listTD.firstChild.firstChild.innerHTML += '<A onclick="replyhl('+post+');" class="quotelink" href="#'+post+'">&gt;&gt;'+post+'</A> ' +
+							'<a href="http://www.last.fm/user/'+user+'" target="_blank">'+user+'</a><br>';
+			listTD.firstChild.firstChild.setAttribute('style','position: relative; left: 3em;');
+// 			listTD.firstChild.setAttribute('style','max-height: 5em; overflow: auto;');
+			listTD.setAttribute('style','border-bottom-width: 2px;');
+			if ( document.getElementById("list_all").checked ) {
+				listTD.parentNode.removeAttribute('style');
+			}
+		}
+		
+		var errors = document.evaluate("//strong[@class='error']", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+		errors = errors.snapshotLength;
+		
+		scoreList[scoreList.length] = score;
+		var average = scoreList.avg();
+		averageTD.innerHTML = (average*100).toFixed(2) + "% (<b>" +
+			getCompatName(average) + "</b>)";       
+		
+		if ( scoreList.length == loadedSpan.parentNode.textContent.split(" ")[0] ) {
+			loadedSpan.innerHTML = "";
+		} else {
+			loadedSpan.innerHTML = "(" + scoreList.length + " loaded";
+			if (errors) {
+				loadedSpan.innerHTML += ", " + errors + " error";
+				if (errors > 1) { loadedSpan.innerHTML += "s"; }
+			}
+			loadedSpan.innerHTML +=")";
+		}
+	}
+}
+
+function getCompatName(score) {
+	var compat = "UNKNOWN";
+	if (score >= 0.00) {
+		if (score < 0.10) {
+			compat = "VERY LOW";
+		} else if (score < 0.30) {
+			compat = "LOW";
+		} else if (score < 0.50) {
+			compat = "MEDIUM";
+		} else if (score < 0.70) {
+			compat = "HIGH";
+		} else if (score < 0.90) {
+			compat = "VERY HIGH";
+		} else if (score <= 1.00) {
+			compat = "SUPER";
+		}
+	}
+	return compat;
+}
+
+function getCompatColor(score) {
+	var compatColor = "#000000";
+	if (score >= 0.00) {
+		if (score < 0.10) {
+			compatColor = "#9A9A9A";
+		} else if (score < 0.30) {
+			compatColor = "#453E45";
+		} else if (score < 0.50) {
+			compatColor = "#5336BD";
+		} else if (score < 0.70) {
+			compatColor = "#05BD4C";
+		} else if (score < 0.90) {
+			compatColor = "#E9C102";
+		} else if (score <= 1.00) {
+			compatColor = "#FF0101";
+		}
+	}
+	return compatColor;
+}
+
+function setUsername(username) {
+	if (username)
+	{
+		// analyze if it is a username or a link
+		var regexp = /last.fm\/user\/([\w-]+)/ ;
+		if ( regexp.test(username) ) {
+			username = regexp.exec(username)[1];
+		}
+		GM_setValue("scriptUser",username);
+		// remove the spacer tr
+		var spacer = document.getElementById("spacer");
+		spacer.parentNode.removeChild(spacer);
+		buildUsername(username, true); // creates the tr that displays name and [change] link
+	}
+}
+
+function buildUsername(username, reloader) {
+	var label = document.getElementById('username').childNodes[1];
+	var dataTd = document.getElementById('username').childNodes[2];
+	label.innerHTML = "<small>Last.fm user:</small>";
+	label.removeAttribute('class');
+	dataTd.innerHTML = "<small><a href='http://www.last.fm/user/"+username+"' target='_blank'>"+username+"</a> [";
+	changeLink = dataTd.firstChild.appendChild(document.createElement('a'));
+	changeLink.textContent = "change";
+	changeLink.setAttribute('href','#');
+	dataTd.firstChild.appendChild( document.createTextNode("]") );
+	
+	changeLink.addEventListener('click', function(event) {
+		event.stopPropagation();
+		event.preventDefault();
+		changeUsername();
+		document.getElementById("usernameText").focus();
+	}, false);
+	
+	if (reloader) {
+//      dataTd.innerHTML += " [<a href=javascript:window.location.reload()>Reload page</a>]";
+		dataTd.appendChild( document.createTextNode(" [") );
+		var reloadLink = dataTd.appendChild(document.createElement('a'));
+		reloadLink.textContent = "Reload page";
+		reloadLink.setAttribute('href','javascript:window.location.reload()');
+		reloadLink.setAttribute('style','font-weight: bold;');
+		dataTd.appendChild( document.createTextNode("]") );     
+	}
+	
+	
+	createNpCheckbox(username);
+}
+
+function changeUsername() {
+	var label = document.getElementById('username').childNodes[1];
+	var dataTd = document.getElementById('username').childNodes[2];
+	dataTd.innerHTML= '';
+
+	var spacerTr = document.createElement('tr');
+	spacerTr.id = "spacer";
+	spacerTr.innerHTML = "<td></td><td><br></td><td></td>";
+	postTable.insertBefore(spacerTr, postTable.firstChild.nextSibling);
+	
+	label.setAttribute('class','postblock');
+	label.innerHTML = "<b>Last.fm</b>";
+	
+	var dataForm = dataTd.appendChild(document.createElement('form'));
+	dataForm.setAttribute('style', 'margin: 0px;');
+	var usernameText = dataForm.appendChild(document.createElement('input'));
+	var usernameButton = dataForm.appendChild(document.createElement('input'));
+	usernameText.setAttribute('type','text');
+	usernameText.setAttribute('class','inputtext');
+	usernameText.setAttribute('size','14');
+	usernameText.id = "usernameText";
+	
+	usernameButton.setAttribute('type','submit');
+	usernameButton.setAttribute('value','Set username');
+	
+	dataForm.addEventListener('submit', function(event) {
+		event.stopPropagation();
+		event.preventDefault();
+		setUsername(usernameText.value);
+	}, true);
+}
+
+function createNpCheckbox(scriptUser) {
+	/*
+	need to fix 4chan ext compat, checkbox does nothing in "quick reply"
+	*/
+	var tdname = document.getElementById('tdname');
+	tdname.appendChild( document.createTextNode(" [") );
+	var label = document.createElement('label');
+	var npCheckbox = label.appendChild( document.createElement('input') );
+	npCheckbox.setAttribute('type','checkbox');
+	label.appendChild( document.createTextNode("Now Playing") );
+	tdname.appendChild(label);
+	tdname.appendChild( document.createTextNode("]") );
+	
+	var nameText = tdname.parentNode.getElementsByTagName("input")[0];
+	nameText.id = "name_text";
+	npCheckbox.addEventListener("click", ( function() {
+		GM_setValue("nowPlayingEnabled",npCheckbox.checked);
+		if (npCheckbox.checked) {
+			enableNp(scriptUser,true);
+		} else {
+ 			nameText.removeAttribute('style');
+ 			
+ 			if (POST_NAME + POST_TRIP == "Anonymous") {
+	 			nameText.value = "";
+ 			} else {
+	 			nameText.value = POST_NAME + POST_TRIP;
+ 			}
+ 			
+ 			var textarea = document.getElementsByTagName("textarea")[0];
+			textarea.removeEventListener('focus', getNowPlaying, false);
+			var fileinput = textarea.parentNode.parentNode.parentNode.getElementsByTagName("input")[5];
+			fileinput.removeEventListener('focus', getNowPlaying, false);
+		}
+	} ), false);
+	npCheckbox.checked = GM_getValue("nowPlayingEnabled",false);
+	
+	if (npCheckbox.checked) {
+		// this could be set to false and then doesn't update until text is entered
+		// but that makes compat with extension harder
+		enableNp(scriptUser,true);
+	}
+}
+
+function enableNp(scriptUser, updateNow) {
+	var chan_name = POST_NAME + POST_TRIP;
+	if (POST_NAME + POST_TRIP == "Anonymous") {
+		chan_name = "";
+	}
+	// alters the cookie saved, so other 4chan boards aren't affected
+	var loc = 'javascript:void( createCookie("4chan_name","' + chan_name + '",7,".4chan.org") );';
+	location.href = loc;
+	
+	var nameText = document.getElementById('name_text');	
+	var textarea = document.getElementsByTagName("textarea")[0];
+	textarea.addEventListener('focus', getNowPlaying, false);
+	var fileinput = textarea.parentNode.parentNode.parentNode.getElementsByTagName("input")[5];
+	fileinput.addEventListener('focus', getNowPlaying, false);
+	
+	nameText.setAttribute('style','background-color: rgb(235, 233, 237); color: rgb(68, 68, 68);');
+	
+	if (updateNow) {
+		getNowPlaying();
+	}
+}
+
+
+function createPostHelper(scriptUser) {
+	var commentTr = document.getElementsByTagName("form")[0].getElementsByTagName("tr")[4];
+	commentTr.firstChild.setAttribute('style','width:13em;');
+	commentTr.getElementsByTagName("textarea")[0].setAttribute('style','float: left;');
+	var postHelper = document.createElement('div');
+	postHelper.setAttribute('style','float: right; margin-left: 5px; width: 14em;');
+	postHelper.setAttribute('id','postHelper');
+	postHelper.appendChild( document.createTextNode("Insert: ") );
+
+	postHelper.appendChild( document.createElement('br') );
+	postHelper.appendChild( document.createTextNode("[") );
+	var chartLink = postHelper.appendChild( document.createElement('a') );
+	chartLink.textContent = "Weekly artist chart";
+	chartLink.setAttribute('href','javascript:void(0)');
+	postHelper.appendChild( document.createTextNode("] ") );
+	var chartSetting = postHelper.appendChild( document.createElement('select') );
+	chartSetting.setAttribute('style','display:none');
+	chartSetting.innerHTML = "<option value=10>10</option><option value=15>15</option><option value=20>20</option><option value=25>25</option><option value=30>30</option>";
+	chartSetting.value = GM_getValue("weeklyChartAmount","10");
+	postHelper.addEventListener('change', ( function() {GM_setValue("weeklyChartAmount",chartSetting.value);} ), false);
+
+	postHelper.addEventListener('mouseover', ( function() {
+		if (chartSetting.getAttribute('class') != "hide") {
+			chartSetting.setAttribute('style','height: 16px; font-size: 10px;');
+		}
+	} ), false);
+	postHelper.addEventListener('mouseout', ( function() {chartSetting.setAttribute('style','display:none');} ), false);
+	
+	var chartStatus = postHelper.appendChild( document.createElement('small') );
+	chartLink.addEventListener('click', ( function() {getChart(scriptUser, chartSetting, chartStatus);} ), false);
+	
+	postHelper.appendChild( document.createElement('br') );
+	postHelper.appendChild( document.createTextNode("[") );
+	var allChartLink = postHelper.appendChild( document.createElement('a') );
+	allChartLink.textContent = "Overall artist chart";
+	allChartLink.setAttribute('href','javascript:void(0)');
+	postHelper.appendChild( document.createTextNode("] ") );
+	allChartLink.addEventListener('click', ( function() {getChart(scriptUser, chartSetting, chartStatus, 'overall');} ), false);
+	
+	postHelper.appendChild( document.createElement('br') );
+	postHelper.appendChild( document.createTextNode("[") );
+	var trackLink = postHelper.appendChild( document.createElement('a') );
+	trackLink.textContent = "Current track";
+	trackLink.setAttribute('href','javascript:void(0)');
+	postHelper.appendChild( document.createTextNode("]") );
+	var trackStatus = postHelper.appendChild( document.createElement('small') );
+	trackLink.addEventListener('click', ( function() {insertPlaying(scriptUser,trackStatus);} ), false);
+	
+	postHelper.appendChild( document.createElement('br') );
+	postHelper.appendChild( document.createTextNode("[") );
+	var profileLink = postHelper.appendChild( document.createElement('a') );
+	profileLink.textContent = "Profile link";
+	profileLink.setAttribute('href','javascript:void(0)');
+	postHelper.appendChild( document.createTextNode("]") );
+	profileLink.addEventListener('click', ( function() {insertProfile(scriptUser);} ), false);
+	
+	commentTr.getElementsByTagName("td")[2].appendChild(postHelper);
+}
+
+function insertProfile(scriptUser, targetForm) {
+	if (!targetForm) {
+		targetForm = document;
+	}
+	textarea = targetForm.getElementsByTagName("textarea")[0];
+	textarea.focus();
+	if (textarea.value) {
+		textarea.value += "\n";
+	}
+	textarea.value+="http://www.last.fm/user/"+scriptUser;
+	textarea.scrollTop = textarea.scrollHeight;
+}
+
+function insertPlaying(scriptUser,trackStatusElm, targetForm) {
+	if (!targetForm) {
+		targetForm = document;
+	}
+	trackStatusElm.textContent = " Loading...";
+	var d = new Date();
+	var t = d.getTime(); //used to force un-cached xml
+		GM_xmlhttpRequest({
+		method: 'GET',
+		url: 'http://ws.audioscrobbler.com/2.0/user/'+scriptUser+'/recenttracks.xml?limit=1&time='+t,
+		headers: { 
+			'User-agent': 'Mozilla/4.0 (compatible) Greasemonkey',
+			'Accept': 'application/atom+xml,application/xml,text/xml',
+			'Cache-Control': 'no-cache',
+		},
+		onload: function(response) {
+			var textarea = targetForm.getElementsByTagName("textarea")[0];
+			var npXML = new DOMParser().parseFromString(response.responseText, "application/xml");
+			artist = npXML.getElementsByTagName("artist")[0].textContent;
+			songtitle = npXML.getElementsByTagName("name")[0].textContent;
+			
+			textarea.focus();
+			if (textarea.value)
+			{
+				artist = "\n" + artist;
+			}
+			textarea.value += artist + " - " + songtitle + "\n";
+			textarea.scrollTop = textarea.scrollHeight;
+			trackStatusElm.textContent = "";
+		}
+	});
+}
+
+function getNowPlaying() {
+	var scriptUser = GM_getValue("scriptUser");
+
+	var d = new Date();
+	var t = d.getTime(); //used to force un-cached xml
+		GM_xmlhttpRequest({
+		method: 'GET',
+		url: 'http://ws.audioscrobbler.com/2.0/user/'+scriptUser+'/recenttracks.xml?limit=1&time='+t,
+		headers: { 
+			'User-agent': 'Mozilla/4.0 (compatible) Greasemonkey',
+			'Accept': 'application/atom+xml,application/xml,text/xml',
+			'Cache-Control': 'no-cache',
+		},
+		onload: function(response) {
+// 			var npText = document.getElementById('np_text');
+ 			var npText = document.getElementById('name_text');
+ 			
+			var npXML = new DOMParser().parseFromString(response.responseText, "application/xml");
+			var artist = npXML.getElementsByTagName("artist")[0].textContent;
+			var songtitle = npXML.getElementsByTagName("name")[0].textContent;
+			var nowp = (npXML.getElementsByTagName("track")[0].getAttribute("nowplaying") == "true");
+						
+			if (nowp) {
+				npText.value = POST_NAME + NP_STRING + artist + " - " + songtitle + POST_TRIP;
+				npText.setAttribute("title", artist + " - " + songtitle);
+			} else {
+				if (POST_NAME + POST_TRIP == "Anonymous") {
+		 			npText.value = "";
+	 			} else {
+		 			npText.value = POST_NAME + POST_TRIP;
+	 			}
+				npText.removeAttribute("title");
+			}
+
+		}
+	});
+}
+
+
+function getChart(scriptUser, chartSetting, chartStatus, period, targetForm) {
+	chartStatus.textContent = "Loading...";
+//  chartSetting.parentNode.removeEventListener('mouseover', ( function() {chartSetting.setAttribute('style','height: 16px; font-size: 10px;');} ), false);
+	chartSetting.setAttribute('style','display:none');
+	chartSetting.setAttribute('class','hide');
+	if (!targetForm) {
+		targetForm = document;
+	}
+	var chartUrl = "http://ws.audioscrobbler.com/2.0/user/" + scriptUser;
+	if (period) {
+		chartUrl += "/topartists.xml?period=" + period;
+	} else {
+		chartUrl += "/weeklyartistchart.xml";
+	}
+
+		GM_xmlhttpRequest({
+		method: 'GET',
+		url: chartUrl,
+		headers: { 
+			'User-agent': 'Mozilla/4.0 (compatible) Greasemonkey',
+			'Accept': 'application/atom+xml,application/xml,text/xml', 
+		},
+		onload: function(response) {
+			chartStatus.textContent = "";
+			chartSetting.removeAttribute('class');
+			var chartText = "";
+			var textarea = targetForm.getElementsByTagName("textarea")[0];
+			var chartXML = new DOMParser().parseFromString(response.responseText, "application/xml");
+			var artists = chartXML.getElementsByTagName("artist");
+			for ( var i=0 ; i < artists.length && i < chartSetting.value; i++ ) {
+				chartText += artists[i].getAttribute('rank') + "  ";
+				chartText += artists[i].getElementsByTagName("name")[0].textContent + "    ";
+				chartText += artists[i].getElementsByTagName("playcount")[0].textContent + "\n";                
+			}
+			textarea.focus();
+			if (textarea.value)
+			{
+				chartText = "\n" + chartText;
+			}
+			textarea.value += chartText;
+			textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+			textarea.scrollTop = textarea.scrollHeight;
+		}
+	});
+
+}
+
+
+
+// Now we start
+
+
+// Get the script user's last.fm username
+var scriptUser;
+if ( document.getElementsByTagName("form")[0] ) {   // if it's a standard page
+	var postTable = document.getElementsByTagName("form")[0].getElementsByTagName("tr")[0].parentNode;
+	var usernameTr = document.createElement('tr');
+	usernameTr.appendChild(document.createElement('td'));
+	usernameTr.id = "username";
+	var label = usernameTr.appendChild(document.createElement('td'));
+	var dataTd = usernameTr.appendChild(document.createElement('td'));
+	postTable.insertBefore(usernameTr, postTable.firstChild);
+	
+	// GM_deleteValue("scriptUser"); // used for testing
+	
+	if (scriptUser = GM_getValue("scriptUser")) {
+		buildUsername(scriptUser);
+	} else {
+		changeUsername();
+	}
+	
+	// Object to store post IDs with last.fm usernames
+	var postUser = new Object();
+	
+	// get all posts
+	var snapResults = document.evaluate("//form//blockquote", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+	
+	for ( var i=0 ; i < snapResults.snapshotLength; i++ ) {
+		var bq = snapResults.snapshotItem(i);
+		postUser = analyzePost(bq, postUser, scriptUser);
+	}
+	
+	if (scriptUser) {
+		createPostHelper(scriptUser);
+	}
+}
+// get all newly-created last.fm blocks
+// snapResults = document.evaluate("//*[@class='reply lastfm']|//*[@class='replyhl lastfm']", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+snapResults = document.evaluate("//*[@class='reply lastfm']", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+
+var friendList = [];
+
+// only runs this if there's at least one last.fm posted, and your username has been set
+if (snapResults.snapshotLength && scriptUser) {
+	// get list of friends and then checkFriendStatus
+	GM_xmlhttpRequest({
+		method: 'GET',
+		url: 'http://ws.audioscrobbler.com/1.0/user/'+scriptUser+'/friends.xml', // using 1.0 cuz it's slightly smaller
+		headers: { 
+			'User-agent': 'Mozilla/4.0 (compatible) Greasemonkey',
+			'Accept': 'application/atom+xml,application/xml,text/xml', 
+		},
+		onload: function(response) {
+			var friendsXML = new DOMParser().parseFromString(response.responseText, "application/xml");
+			users = friendsXML.getElementsByTagName("user");
+			for ( var i=0 ; i < users.length; i++ ) {
+				friendList[i] = users[i].getAttribute('username').toLowerCase();
+			}
+			for ( var i=0 ; i < snapResults.snapshotLength; i++ ) {
+				var elm = snapResults.snapshotItem(i);
+				username = postUser[elm.id];
+				checkFriendStatus(username,elm.id,friendList);
+			}
+		}
+	});
+	
+// create the stats area (only if it is a last.fm thread in reply mode)
+	if (String(window.location).match("mu/res") ) {
+		var replyArea = document.getElementsByTagName("form")[1];
+		var stats = document.createElement('div');
+		// for (compat in compatCount) ...
+		stats.innerHTML = '<table cellpadding=1 cellspacing=1>' +
+		'<tr><td colspan=3 class="postblock" width="400" align="center"><b>Last.fm Thread Stats</b></td></tr>' + 
+		'<tr><td class="postblock" width="50%" style="border: none"><b>Profiles</b></td>' + 
+			'<td class="reply" colspan=2 align="center" style="border: none">'+ snapResults.snapshotLength +
+				' <span id="loaded">(0 loaded)</span></td></tr>' +
+		'<tr><td class="postblock" width="50%" style="border: none"><b>Average compatibility</b></td>' + 
+			'<td id="average" class="reply" colspan=2 align="center" style="border: none"></td></tr>' +
+			 
+		'<tr><td class="postblock" rowspan=14 width="50%" style="border: none"><b>Compatibility breakdown</b></td>' + 
+		
+		
+		'<td cellpadding=0 cellspacing=0><div style="max-height: 30em; overflow: auto"><table width=100% cellpadding=1 cellspacing=1><tr>' +
+		
+		
+			'<td class="reply" width="50%" style="border: none">Super</td>' +
+			'<td id="super" class="reply" style="border: none;">0</td></tr>' +
+		'<tr style="display: none;"><td id="list super" class="reply" colspan=2><div><small></small></div></td></tr>' +
+		'<tr> ' + 
+			'<td class="reply" style="border: none">Very High</td>' +
+			'<td id="very high" class="reply" style="border: none">0</td></tr>' +
+		'<tr style="display: none;"><td id="list very high" class="reply" colspan=2><div><small></small></div></td></tr>' +
+		'<tr> ' + 
+			'<td class="reply" style="border: none">High</td>' +
+			'<td id="high" class="reply" style="border: none">0</td></tr>' +
+		'<tr style="display: none;"><td id="list high" class="reply" colspan=2><div><small></small></div></td></tr>' +
+		'<tr> ' + 
+			'<td class="reply" style="border: none">Medium</td>' +
+			'<td id="medium" class="reply" style="border: none">0</td></tr>' +
+		'<tr style="display: none;"><td id="list medium" class="reply" colspan=2><div><small></small></div></td></tr>' +
+		'<tr> ' + 
+			'<td class="reply" style="border: none">Low</td>' +
+			'<td id="low" class="reply" style="border: none">0</td></tr>' +
+		'<tr style="display: none;"><td id="list low" class="reply" colspan=2><div><small></small></div></td></tr>' +
+		'<tr> ' + 
+			'<td class="reply" style="border: none">Very Low</td>' +
+			'<td id="very low" class="reply" style="border: none">0</td></tr>' +
+		'<tr style="display: none;"><td id="list very low" class="reply" colspan=2><div><small></small></div></td></tr>' +
+		
+		'</tr></table></div></td>' + 
+			
+		'<tr><td class="reply" colspan=2 align="center">[<LABEL><INPUT id="list_all" type="checkbox"/>List all profiles</LABEL>]</td></tr>' +
+		'</table>';
+		
+		stats.id = "stats";
+		stats.setAttribute('align', 'center');
+// 		stats.setAttribute('style', 'max-height: 17em; overflow: auto');
+
+		replyArea.parentNode.insertBefore(stats, replyArea);
+		replyArea.parentNode.insertBefore(document.createElement('hr'), replyArea);
+
+		var listCheckbox = document.getElementById("list_all");
+		listCheckbox.addEventListener("click", toggleList, false);
+		listCheckbox.checked = GM_getValue("listAllProfiles",false);
+	}
+}
+
+// Search feature - finds all last.fm threads
+if ( ! String(window.location).match("mu/res") ) {
+	var replyArea = document.getElementsByTagName("form")[1];
+	var searchbox = document.createElement('div');
+	searchbox.setAttribute('align', 'center');
+	var searchbutton = document.createElement('button');
+	
+	var regexp = /\b(desktop|destoop|thread)(?:\W+\w+){1,6}?\W+(desktop|destoop|thread)\b/;
+	var threadrx = /\[<a href="res\/(\d+)">Reply<\/a>\]/;
+	
+	searchbutton.textContent = "Search for desktop threads";
+	searchbox.appendChild(searchbutton);
+	
+	replyArea.parentNode.insertBefore(searchbox, replyArea);
+	replyArea.parentNode.insertBefore(document.createElement('hr'), replyArea);
+	
+	searchbutton.addEventListener('click', ( function() {
+		var d = new Date();
+		var t = d.getTime(); //used to force un-cached page
+		var pagesremain = 10;
+		for ( var i=0 ; i <= 10; i++ ) {
+			var page = i;
+			if (i == 0) { 
+				page = '';
+			}
+			searchbox.innerHTML = "<b>desktop threads:</b>";
+			
+			GM_xmlhttpRequest({
+			method: 'GET',
+			url: "http://boards.4chan.org/g/" + page + "?t=" + t,
+			headers: { 
+				'User-agent': 'Mozilla/4.0 (compatible) Greasemonkey',
+				'Accept': 'text/html,application/atom+xml,application/xml,text/xml', 
+			},
+			onload: function(response) {
+				// search each page
+				if ( regexp.test(response.responseText) ) {
+					// search each thread
+					var threads = response.responseText.split('<span class="postername">');
+					for ( var i=1 ; i <= threads.length; i++ ) {
+						if ( regexp.test(threads[i]) ) {
+							var lastfmthread = threads[i].match(threadrx)[1];
+// 							GM_log( lastfmthread );
+							searchbox.innerHTML += '<br><a href="res/' + lastfmthread + '" class="quotelink">&gt;&gt;' + lastfmthread + '</a>';
+						}
+					}
+				} else {
+					pagesremain--;
+					if (pagesremain < 0) {
+						searchbox.innerHTML = "<b>No desktop threads found!</b>";
+					}
+				}
+			}
+			});	
+		}		
+	} ), false);
+}
+
+
+
+
+// For compatibility with the 4chan Firefox Extension
+
+document.addEventListener("DOMNodeInserted", documentChanged, false);
+
+function documentChanged(event) {
+	if ( event.target.nodeName == "TABLE" ) {   // post expansion
+	// need to make postUser known so analyzePost can check for dupes
+		var tdElm = event.target.getElementsByTagName("td")[1];
+		if ( tdElm ) {
+//          event.target.getElementsByTagName("td")[1].setAttribute('style', 'background-color: lime!important');
+			if ( bqElm = tdElm.getElementsByTagName("blockquote")[0] ) {
+				username = analyzePost(bqElm, false, scriptUser);
+				// friendlist will be blank if there wasn't a last.fm on the page before expansion. oh well.
+				if (username) { checkFriendStatus(username,"l_"+tdElm.id,friendList); }
+			}
+		}
+	} else if ( event.target.nodeName == "FORM" && event.target.parentNode.nodeName == "DIV") { // quick reply
+//      GM_log(event.target.id);
+		var rows = event.target.getElementsByTagName("tr")
+		while (rows.length > 9) {
+			rows[0].parentNode.removeChild(rows[0]);
+		}
+		
+		if (scriptUser) {
+			var commentTr = event.target.getElementsByTagName("tr")[3];
+			commentTr.firstChild.removeAttribute('style');
+			
+			var postHelper = event.target.getElementsByTagName("div")[0];
+			postHelper.setAttribute('style','float: right; margin-left: 5px; width: 9em;');
+			var chartSetting = document.getElementsByTagName("select")[0];
+			var loadingStatus = postHelper.insertBefore( document.createElement('small'), postHelper.getElementsByTagName("br")[0] );
+			a = postHelper.getElementsByTagName("a");
+			a[0].addEventListener('click', ( function() {getChart(scriptUser, chartSetting, loadingStatus, false, event.target);} ), false);
+			a[1].addEventListener('click', ( function() {getChart(scriptUser, chartSetting, loadingStatus, 'overall', event.target);} ), false);
+			a[2].addEventListener('click', ( function() {insertPlaying(scriptUser,loadingStatus, event.target);} ), false);
+			a[3].addEventListener('click', ( function() {insertProfile(scriptUser, event.target);} ), false);
+		}
+	}
+}

@@ -1,0 +1,8 @@
+[X-GNOME-Metatheme]
+Name=Carbon
+Type=X-GNOME-Metatheme
+Comment=
+Encoding=UTF-8
+GtkTheme=Carbon
+MetacityTheme=Unity-Wide
+IconTheme=Freezy

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this is NOT XUL -->
+<layout minversion="0.4.1.0">
+	
+	<popupmenu popupclass="chmenu" lable="Text Boards" menuclass="icon4ch" menustyle="font-weight: bold;">
+		<boardlist hreftemplate="{BOARD_LOCATION}/{BOARD_DIR}/{BOARD_INDEX}" labeltemplate="/{BOARD_DIR}/ - {BOARD_NAME}" boardcategory="4ch-lounge" seperator="false"/>
+		<boardlist hreftemplate="{BOARD_LOCATION}/{BOARD_DIR}/{BOARD_INDEX}" labeltemplate="/{BOARD_DIR}/ - {BOARD_NAME}" boardcategory="4ch-newsandgeneral"/>
+		<boardlist hreftemplate="{BOARD_LOCATION}/{BOARD_DIR}/{BOARD_INDEX}" labeltemplate="/{BOARD_DIR}/ - {BOARD_NAME}" boardcategory="4ch-computer"/>
+		<boardlist hreftemplate="{BOARD_LOCATION}/{BOARD_DIR}/{BOARD_INDEX}" labeltemplate="/{BOARD_DIR}/ - {BOARD_NAME}" boardcategory="4ch-art"/>
+		<boardlist hreftemplate="{BOARD_LOCATION}/{BOARD_DIR}/{BOARD_INDEX}" labeltemplate="/{BOARD_DIR}/ - {BOARD_NAME}" boardcategory="4ch-games"/>
+		<boardlist hreftemplate="{BOARD_LOCATION}/{BOARD_DIR}/{BOARD_INDEX}" labeltemplate="/{BOARD_DIR}/ - {BOARD_NAME}" boardcategory="4ch-administration"/>
+	</popupmenu>
+	
+	<separator/>
+	<link href="http://www.4chan.org/" lable="4chan News" class="icon4chan"/>
+	<link href="http://status.4chan.org" lable="4chan Status"/>
+	<link href="http://twitter.com/4chan" lable="4chan Twitter"/>
+	
+	<popupmenu lable="Links">
+		<link href="http://www.4chan.org/blog/" location="www.4chan" lable="DevBlog"/>
+		<link href="http://www.4chan.org/faq.php" location="www.4chan" lable="FAQ"/>
+		<link href="http://www.4chan.org/rules.php" location="www.4chan" lable="Rules"/>
+		<link href="http://www.4chan.org/flash/" location="www.4chan" lable="Flash"/>
+		<separator/>
+		<link href="http://4chan.wrathfilledhate.net/" lable="Extension Info Page"/>
+		<link href="http://dis.4chan.org/read/comp/1203116978" location="www.world4ch" lable="Extension Support"/>
+	</popupmenu>
+	
+	<!-- <boardlist hreftemplate="{BOARD_LOCATION}/{BOARD_DIR}/" labeltemplate="/{BOARD_DIR}/ - {BOARD_NAME}" boardcategory="4chan-temp-imageboards"/> -->
+	<boardlist hreftemplate="{BOARD_LOCATION}/{BOARD_DIR}/" labeltemplate="/{BOARD_DIR}/ - {BOARD_NAME}" boardcategory="4chan-imageboards"/>
+	<boardlist hreftemplate="{BOARD_LOCATION}/{BOARD_DIR}/" labeltemplate="/{BOARD_DIR}/ - {BOARD_NAME}" boardcategory="4chan-drawingboards"/>
+	<boardlist hreftemplate="{BOARD_LOCATION}/{BOARD_DIR}/" labeltemplate="/{BOARD_DIR}/ - {BOARD_NAME}" boardcategory="4chan-uploadboards"/>
+	<separator/>
+	<link href="http://rs.4chan.org/" lable="/rs/ - Rapidshares"/>
+</layout>

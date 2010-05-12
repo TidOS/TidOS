@@ -1,0 +1,24 @@
+"mpc toggle"
+XF86AudioPlay
+
+"mpc next"
+XF86AudioNext
+
+"mpc prev"
+XF86AudioPrev
+
+#"sh /home/jordan/bin/avatar"
+#XF86AudioStop
+
+   
+"amixer -q set Master 2+"
+   XF86AudioRaiseVolume
+
+"amixer -q set Master 2-"
+    XF86AudioLowerVolume
+
+"urxvt"
+Mod1 + Return
+
+#"firefox3"
+#Mod4 + F

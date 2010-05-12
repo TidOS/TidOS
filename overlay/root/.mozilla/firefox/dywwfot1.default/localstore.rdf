@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="chrome://browser/content/browser.xul#PersonalToolbar"
+                   iconsize="small"
+                   collapsed="true" />
+  <RDF:Description RDF:about="chrome://browser/content/sanitize.xul#itemList"
+                   collapsed="false" />
+  <RDF:Description RDF:about="chrome://greasemonkey/content/manage.xul">
+    <NC:persist RDF:resource="chrome://greasemonkey/content/manage.xul#greasemonkey"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="chrome://mozapps/content/extensions/extensions.xul#styles-sort"
+                   value="name" />
+  <RDF:Description RDF:about="chrome://browser/content/browser.xul#main-window"
+                   sizemode="normal"
+                   screenX="0"
+                   width="1280"
+                   screenY="16"
+                   height="768" />
+  <RDF:Description RDF:about="chrome://browser/content/preferences/colors.xul#ColorsDialog"
+                   screenX="40"
+                   screenY="127" />
+  <RDF:Description RDF:about="chrome://stylish/content/edit.xul">
+    <NC:persist RDF:resource="chrome://stylish/content/edit.xul#stylish"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="chrome://browser/content/preferences/preferences.xul">
+    <NC:persist RDF:resource="chrome://browser/content/preferences/preferences.xul#BrowserPreferences"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="chrome://browser/content/preferences/preferences.xul#BrowserPreferences"
+                   screenX="397"
+                   screenY="184"
+                   lastSelected="paneAdvanced" />
+  <RDF:Description RDF:about="chrome://global/content/customizeToolbar.xul#CustomizeToolbarWindow"
+                   width="636"
+                   height="400" />
+  <RDF:Description RDF:about="chrome://mozapps/content/downloads/downloads.xul#downloadManager"
+                   screenX="0"
+                   screenY="16"
+                   sizemode="normal"
+                   width="1280"
+                   height="384" />
+  <RDF:Description RDF:about="chrome://global/content/customizeToolbar.xul">
+    <NC:persist RDF:resource="chrome://global/content/customizeToolbar.xul#CustomizeToolbarWindow"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="chrome://browser/content/browser.xul#sidebar-title"
+                   value="" />
+  <RDF:Description RDF:about="chrome://browser/content/sanitize.xul#detailsExpander"
+                   class="expander-up" />
+  <RDF:Description RDF:about="chrome://browser/content/sanitize.xul">
+    <NC:persist RDF:resource="chrome://browser/content/sanitize.xul#SanitizeDialog"/>
+    <NC:persist RDF:resource="chrome://browser/content/sanitize.xul#detailsExpander"/>
+    <NC:persist RDF:resource="chrome://browser/content/sanitize.xul#itemList"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="chrome://greasemonkey/content/manage.xul#greasemonkey"
+                   screenX="0"
+                   screenY="16"
+                   width="1280"
+                   height="384" />
+  <RDF:Description RDF:about="chrome://browser/content/preferences/colors.xul">
+    <NC:persist RDF:resource="chrome://browser/content/preferences/colors.xul#ColorsDialog"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="chrome://stylish/content/edit.xul#stylish"
+                   screenX="0"
+                   screenY="16"
+                   sizemode="normal"
+                   width="791"
+                   height="384" />
+  <RDF:Description RDF:about="chrome://browser/content/browser.xul#navigator-toolbox"
+                   iconsize="small" />
+  <RDF:Description RDF:about="chrome://browser/content/preferences/fonts.xul">
+    <NC:persist RDF:resource="chrome://browser/content/preferences/fonts.xul#FontsDialog"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="chrome://mozapps/content/extensions/extensions.xul#extensionsManager"
+                   screenX="0"
+                   sizemode="normal"
+                   height="384"
+                   screenY="16"
+                   width="1280" />
+  <RDF:Description RDF:about="chrome://mozapps/content/extensions/extensions.xul#viewGroup"
+                   last-selected="extensions" />
+  <RDF:Description RDF:about="chrome://browser/content/browser.xul#nav-bar"
+                   iconsize="small" />
+  <RDF:Description RDF:about="chrome://mozapps/content/extensions/extensions.xul#extensions-view"
+                   selected="true"
+                   last-selected="urn:mozilla:item:{46551EC9-40F0-4e47-8E18-8E5CF550CFB8}" />
+  <RDF:Description RDF:about="chrome://browser/content/preferences/fonts.xul#FontsDialog"
+                   screenX="24"
+                   screenY="58" />
+  <RDF:Description RDF:about="chrome://stylish/content/install.xul#stylish"
+                   screenX="0"
+                   screenY="16"
+                   sizemode="normal"
+                   height="384"
+                   width="1280" />
+  <RDF:Description RDF:about="chrome://mozapps/content/extensions/extensions.xul">
+    <NC:persist RDF:resource="chrome://mozapps/content/extensions/extensions.xul#search-view"/>
+    <NC:persist RDF:resource="chrome://mozapps/content/extensions/extensions.xul#extensionsManager"/>
+    <NC:persist RDF:resource="chrome://mozapps/content/extensions/extensions.xul#extensions-view"/>
+    <NC:persist RDF:resource="chrome://mozapps/content/extensions/extensions.xul#viewGroup"/>
+    <NC:persist RDF:resource="chrome://mozapps/content/extensions/extensions.xul#userstyles-view"/>
+    <NC:persist RDF:resource="chrome://mozapps/content/extensions/extensions.xul#styles-sort"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="chrome://browser/content/browser.xul">
+    <NC:persist RDF:resource="chrome://browser/content/browser.xul#main-window"/>
+    <NC:persist RDF:resource="chrome://browser/content/browser.xul#navigator-toolbox"/>
+    <NC:persist RDF:resource="chrome://browser/content/browser.xul#toolbar-menubar"/>
+    <NC:persist RDF:resource="chrome://browser/content/browser.xul#nav-bar"/>
+    <NC:persist RDF:resource="chrome://browser/content/browser.xul#PersonalToolbar"/>
+    <NC:persist RDF:resource="chrome://browser/content/browser.xul#sidebar-box"/>
+    <NC:persist RDF:resource="chrome://browser/content/browser.xul#sidebar-title"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="chrome://browser/content/browser.xul#toolbar-menubar"
+                   iconsize="small"
+                   autohide="true" />
+  <RDF:Description RDF:about="chrome://stylish/content/install.xul">
+    <NC:persist RDF:resource="chrome://stylish/content/install.xul#stylish"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="chrome://mozapps/content/downloads/downloads.xul">
+    <NC:persist RDF:resource="chrome://mozapps/content/downloads/downloads.xul#downloadManager"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="chrome://browser/content/sanitize.xul#SanitizeDialog"
+                   screenX="490"
+                   screenY="327" />
+</RDF:RDF>

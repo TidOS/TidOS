@@ -1,0 +1,151 @@
+: 1261774051:0;ls
+: 1261774593:0;w
+: 1261774595:0;startx
+: 1261774649:0;nano .Xdefaults
+: 1261774729:0;sudo pacman -S screen irssi
+: 1261774736:0;screen
+: 1261774740:0;irssi
+: 1261775293:0;ifconfig
+: 1261775296:0;sudo pacman -S scrot
+: 1261775308:0;scrot GNU.png
+: 1261775369:0;awesome --version
+: 1261775443:0;sudo pacman -S git
+: 1261775466:0;git clone http://git.sysphere.org/awesome-configs
+: 1261775482:0;git clone http://git.sysphere.org/vicious
+: 1261775493:0;ls
+: 1261775495:0;cd awesome-configs
+: 1261775495:0;ls
+: 1261775497:0;nano rc.lua
+: 1261775644:0;cd
+: 1261775649:0;mv awesome-configs ~/.config/awesome
+: 1261775654:0;mv vicious ~/.config/awesome/
+: 1261775677:0;w
+: 1261775680:0;screen -r
+: 1261775700:0;nano .config/awesome/rc.lua
+: 1261775744:0;nano .Xdefaults
+: 1261775754:0;xrdb .Xdefaults
+: 1261775799:0;screen -r
+: 1261775860:0;nano .config/awesome/rc.lua
+: 1261776584:0;mpc play
+: 1261776587:0;mpc next
+: 1261776589:0;mpc play 1
+: 1261777182:0;mpc stop
+: 1261777713:0;yaourt -S cw
+: 1261777721:0;yaourt -S cwrapper
+: 1261778098:0;cd Downloads/complete
+: 1261778098:0;ls
+: 1261778103:0;mkdir ~/music/Kamchatka
+: 1261778117:0;mv Kamchatka\ -\ 2005\ -\ Kamchatka\ @\ 192\ kbps ~/music/Kamchatka/Kamchatka
+: 1261778119:0;mpc update
+: 1261778121:0;mpc clear
+: 1261778125:0;mpc listall | mpc add
+: 1261778126:0;mpc play
+: 1261778130:0;alsamixer
+: 1261778313:0;mpc pause
+: 1261778866:0;sudo pacman -S imagemagick gimp
+: 1261779044:0;mpc pause
+: 1261797243:0;mpc play
+: 1261797628:0;mpc pause
+: 1261833064:0;glxgears
+: 1261834947:0;5~cd
+: 1261834947:0;cd
+: 1261834954:0;sudo nano /boot/grub/menu.lst
+: 1261834964:0;sudo reboot
+: 1261839511:0;w
+: 1261839512:0;startx
+: 1261839530:0;sudo mount /dev/sda2 /media/win
+: 1261839532:0;startx
+: 1261839543:0;yaourt -Ss icecat
+: 1261839600:0;yaourt -S icecat
+: 1261839732:0;nano /tmp/yaourt-tmp-jordan/aur-icecat/icecat/moz
+: 1261839734:0;nano /tmp/yaourt-tmp-jordan/aur-icecat/icecat/mozconfig
+: 1261839738:0;fg
+: 1261839853:0;source /etc/profile
+: 1261839858:0;icecat
+: 1261840038:0;sudo pacman -S nitrogen
+: 1261840083:0;nitrogen --set-scaled chan/Wallpaper-gnu.png
+: 1261840104:0;uname -s
+: 1261840106:0;uname -r
+: 1261840113:0;uname --help
+: 1261840115:0;uname -i
+: 1261840119:0;uname -o
+: 1261840130:0;scrot GNU.png
+: 1261841572:0;cd Downloads
+: 1261841572:0;ls
+: 1261841574:0;unzip Jordan.zip
+: 1261841856:0;ls
+: 1261841863:0;ls torrents
+: 1261841865:0;ls complete
+: 1261841918:0;nano ~/.Xdefaults
+: 1261841952:0;nano .zshrc
+: 1261863867:0;sudo reboot
+: 1261866220:0;startx
+: 1261866247:0;sudo mount /dev/sda2 /media/win
+: 1261866248:0;startx
+: 1261866261:0;alsamixer
+: 1261866269:0;mpc play
+: 1261866272:0;mpc next
+: 1261866275:0;mpc random on
+: 1261866276:0;mpc next
+: 1261866349:0;mpc pause
+: 1261868281:0;sudo modprobe acpi-cpufreq
+: 1261868287:0;sudo modprobe cpufreq-ondemand
+: 1261868294:0;sudo pacman -S cpufreq-utils
+: 1261868297:0;sudo pacman -S cpufrequtils
+: 1261868311:0;sudo cpufreq-set -g ondemand
+: 1261869361:0;sudo pacman -S gnome
+: 1261870654:0;mpc pause
+: 1261925822:0;ls .themes
+: 1261926896:0;mv chan img
+: 1261926897:0;ls
+: 1261927757:0;mkdir music/Brant\ Bjork
+: 1261927769:0;mv Downloads/complete/Brant\ Bjork\ -\ Punk\ Rock\ Guilt\ \(FLAC\) music/Brant\ Bjork/"Punk Rock Guilt"
+: 1261927772:0;mpc update
+: 1261927774:0;mpc clear
+: 1261927778:0;mpc listall | mpc add
+: 1261927781:0;mpc play
+: 1261927785:0;mpc play 1
+: 1261927788:0;mpc random off
+: 1261927833:0;sudo nano /etc/pacman.conf
+: 1261927862:0;sudo pacman -Sy kdemod-complete
+: 1261929043:0;startx /usr/bin/awesome
+: 1261929051:0;startx /usr/bin/twm
+: 1261929063:0;sudo reboot
+: 1261929128:0;startx
+: 1261929143:0;sudo mount /dev/sda2 /media/win
+: 1261929148:0;mpd
+: 1261929150:0;startx
+: 1261931192:0;cal 9 1752
+: 1261932159:0;df -Th
+: 1261932163:0;scrot -s
+: 1261932475:0;w
+: 1261934028:0;cd Downloads/complete
+: 1261934028:0;ls
+: 1261934041:0;mv Sleep\ -\ 1993\ -\ Sleep\'s\ Holy\ Mountain\ \[2009,\ Earache\] ~/music/Sleep/"Sleep's Holy Mountain"
+: 1261934043:0;mpc clear
+: 1261934045:0;mpc update
+: 1261934049:0;mpc listall | mpc add
+: 1261934050:0;mpc play
+: 1261934052:0;mpc random on
+: 1261934053:0;mpc play
+: 1261934056:0;mpc next
+: 1261934591:0;sudo pacman -S ncmpcpp
+: 1261934609:0;sudo rm /var/lib/pacman/db.lck
+: 1261934612:0;sudo pacman -S ncmpcpp
+: 1261934618:0;git clone http://git.sysphere.org/dotfiles
+: 1261934684:0;sudo pacman -Rd ncmpcpp
+: 1261934689:0;yaourt -S ncmpcpp-git 
+: 1261934690:0;cd dotfiles
+: 1261934691:0;ls
+: 1261934695:0;cd irssi
+: 1261934695:0;ls
+: 1261934699:0;mv ./* ~/.irssi
+: 1261934701:0;cd ..
+: 1261934702:0;ls
+: 1261934707:0;source zshrc
+: 1261934884:0;mkdir .ncmpcpp
+: 1261934887:0;mkdir ~.ncmpcpp
+: 1261934890:0;mkdir ~/.ncmpcpp
+: 1261934892:0;cd ~/.ncmpcpp
+: 1261934894:0;nano config
+: 1261934901:0;cd

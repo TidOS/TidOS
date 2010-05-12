@@ -1,0 +1,37 @@
+<!ENTITY manage.title "Kullanıcı Betiklerini Yönet">
+<!ENTITY manage.button.close "Kapat">
+<!ENTITY manage.button.add "Ekle...">
+<!ENTITY manage.button.edit "Düzenle...">
+<!ENTITY manage.button.remove "Kaldır">
+<!ENTITY manage.label.grpIncluded "Dahil Edilen Sayfalar">
+<!ENTITY manage.label.grpExcluded "Hariç Tutulan Sayfalar">
+<!ENTITY manage.label.btnEdit "Düzenle">
+<!ENTITY manage.label.chkEnabled "Devrede">
+<!ENTITY manage.label.btnUninstall "Kaldır">
+<!ENTITY manage.label.chkUninstall "İlgili tercihleri de kaldır">
+<!ENTITY manage.reorderHelp "Bu listedeki betikleri sıralamak için fareyle sürükleyip bırakın veya Alt+Yukarı ok/Alt+Aşağı ok tuşlarına basın.">
+<!ENTITY menu.install "Kullanıcı betiği kur...">
+<!ENTITY menu.install.accesskey "Y">
+<!ENTITY menu.show "Kullanıcı betiği kaynağını göster">
+<!ENTITY menu.show.accesskey "G">
+<!ENTITY menu.commands "Kullanıcı betiği komutları...">
+<!ENTITY menu.commands.accesskey "K">
+<!ENTITY menu.new "Yeni kullanıcı betiği...">
+<!ENTITY menu.new.accesskey "Y">
+<!ENTITY menu.manage "Kullanıcı betiklerini yönet...">
+<!ENTITY menu.manage.accesskey "N">
+<!ENTITY statusbar.noscripts "Kurulu betik bulunamadı!">
+<!ENTITY statusbar.enabled "Devrede">
+<!ENTITY statusbar.enabled.accesskey "R">
+<!ENTITY install.title "Greasemonkey Kurulumu">
+<!ENTITY install.runson "üzerinde çalıştıkları:">
+<!ENTITY install.butnoton "üzerinde çalışmadıkları:">
+<!ENTITY install.warning1 "Kötü niyetli betikler gizliliğinizi ihlal edebilir ve siz bilmeden size karşı çalışabilir.">
+<!ENTITY install.warning2 "Yalnızca güvendiğiniz kaynaklardan gelen betikleri kurmalısınız.">
+<!ENTITY install.showscriptsource "Betik kaynağını göster">
+<!ENTITY install.installbutton "Kur">
+<!ENTITY newscript.name "Adı">
+<!ENTITY newscript.namespace "Alan adı">
+<!ENTITY newscript.description "Tanım">
+<!ENTITY newscript.includes "Dahil olanlar (Her satıra bir tane)">
+<!ENTITY newscript.excludes "Hariç olanlar (Her satıra bir tane)">

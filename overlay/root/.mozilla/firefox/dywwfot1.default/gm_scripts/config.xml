@@ -1,0 +1,147 @@
+<UserScriptConfig>
+	<Script filename="videoembed.user.js" name="Videoembed" namespace="http://hergonan.blogspot.com/" description="Automatically adds embedded videos after links to video pages.." enabled="false" basedir="videoembed">
+		<Include>*</Include>
+		<Exclude>http://youtube.*</Exclude>
+		<Exclude>http://*.youtube.*</Exclude>
+		<Exclude>http://glumbert.*</Exclude>
+		<Exclude>http://*.glumbert.*</Exclude>
+		<Exclude>http://metacafe.*</Exclude>
+		<Exclude>http://*.metacafe.*</Exclude>
+		<Exclude>http://video.google.*</Exclude>
+		<Exclude>http://animeepisodes.*</Exclude>
+		<Exclude>http://*.animeepisodes.*</Exclude>
+		<Exclude>http://myvideo.*</Exclude>
+		<Exclude>http://*.myvideo.*</Exclude>
+		<Exclude>http://video.tinypic.*</Exclude>
+		<Exclude>http://video.yahoo.*</Exclude>
+		<Exclude>http://spike.*</Exclude>
+		<Exclude>http://*.spike.*</Exclude>
+		<Exclude>http://vids.myspace.*</Exclude>
+		<Exclude>http://liveleak.*</Exclude>
+		<Exclude>http://*.liveleak.*</Exclude>
+		<Exclude>http://revver.*</Exclude>
+		<Exclude>http://*.revver.*</Exclude>
+		<Exclude>http://vimeo.*</Exclude>
+		<Exclude>http://*.vimeo.*</Exclude>
+		<Exclude>http://veoh.*</Exclude>
+		<Exclude>http://*.veoh.*</Exclude>
+		<Exclude>http://guba.*</Exclude>
+		<Exclude>http://*.guba.*</Exclude>
+		<Exclude>http://gamevideos.1up.*</Exclude>
+		<Exclude>http://gametrailers.*</Exclude>
+		<Exclude>http://*.gametrailers.*</Exclude>
+		<Exclude>http://pikniktube.*</Exclude>
+		<Exclude>http://*.pikniktube.*</Exclude>
+		<Exclude>http://tudou.*</Exclude>
+		<Exclude>http://*.tudou.*</Exclude>
+		<Exclude>http://collegehumor.*</Exclude>
+		<Exclude>http://*.collegehumor.*</Exclude>
+		<Exclude>http://5min.*</Exclude>
+		<Exclude>http://*.5min.*</Exclude>
+		<Exclude>http://ustream.*</Exclude>
+		<Exclude>http://*.ustream.*</Exclude>
+		<Exclude>http://fliggo.*</Exclude>
+		<Exclude>http://*.fliggo.*</Exclude>
+		<Exclude>http://overlay.*</Exclude>
+		<Exclude>http://*.overlay.*</Exclude>
+		<Exclude>http://webshots.*</Exclude>
+		<Exclude>http://*.webshots.*</Exclude>
+		<Exclude>http://clipshack.*</Exclude>
+		<Exclude>http://*.clipshack.*</Exclude>
+		<Exclude>http://cnettv,cnet.*</Exclude>
+		<Exclude>http://crackle.*</Exclude>
+		<Exclude>http://*.crackle.*</Exclude>
+		<Exclude>http://current.*</Exclude>
+		<Exclude>http://*.current.*</Exclude>
+		<Exclude>http://expertvillage.*</Exclude>
+		<Exclude>http://*.expertvillage.*</Exclude>
+		<Exclude>http://funnyordie.*</Exclude>
+		<Exclude>http://*.funnyordie.*</Exclude>
+		<Exclude>http://godtube.*</Exclude>
+		<Exclude>http://*.godtube.*</Exclude>
+		<Exclude>http://justin.*</Exclude>
+		<Exclude>http://*.justin.*</Exclude>
+		<Exclude>http://livevideo.*</Exclude>
+		<Exclude>http://*.livevideo.*</Exclude>
+		<Exclude>http://putfile.*</Exclude>
+		<Exclude>http://*.putfile.*</Exclude>
+		<Exclude>http://12seconds.*</Exclude>
+		<Exclude>http://*.12seconds.*</Exclude>
+		<Exclude>http://selfcasttv.*</Exclude>
+		<Exclude>http://*.selfcasttv.*</Exclude>
+		<Exclude>http://sevenload.*</Exclude>
+		<Exclude>http://*.sevenload.*</Exclude>
+		<Exclude>http://spikedhumor.*</Exclude>
+		<Exclude>http://*.spikedhumor.*</Exclude>
+		<Exclude>http://jumpcut.*</Exclude>
+		<Exclude>http://*.jumpcut.*</Exclude>
+		<Exclude>http://*.gamecorner.*</Exclude>
+		<Exclude>http://gamecorner.*</Exclude>
+	</Script>
+	<Script filename="mu__lastfm.user.js" name="/mu/ + Last.fm" namespace="http://pseudochron.com" description="Tools combining 4chan's /mu/ and last.fm" enabled="false" basedir="mu__lastfm">
+		<Include>http://*.4chan.org/mu/*</Include>
+		<Include>http://*.4chan.org/g/*</Include>
+	</Script>
+	<Script filename="4chan_sounds.user.js" name="4chan sounds" namespace="http://userscripts.org/users/33432" description="Allows to post sounds in 4chan's boards." enabled="true" basedir="4chan_sounds">
+		<Include>http://zip.4chan.org/*</Include>
+		<Include>http://boards.4chan.org/*</Include>
+	</Script>
+	<Script filename="backwash_reloaded.user.js" name="/b/ackwash reloaded" namespace="http://userscripts.org/users/64431" description="/b/ackwash + backlinks + inline quotes" enabled="true" basedir="backwash_reloaded">
+		<Include>http://*.4chan.org/*</Include>
+		<Include>http://4chanarchive.org/brchive/*</Include>
+		<Include>http://suptg.thisisnotatrueending.com/archive/*</Include>
+		<Include>http://archive.easymodo.net/cgi-board.pl/*</Include>
+	</Script>
+	<Script filename="multi-column_view_of_goo.user.js" name="Multi-Column View of Google Search Results " namespace="http://twitter.com/ziru" description="" enabled="false" basedir="multi-column_view_of_goo">
+		<Include>http://www.google.*/*</Include>
+		<Include>https://www.google.*/*</Include>
+	</Script>
+	<Script filename="4chan_x.user.js" name="4chan X" namespace="aeosynth" description="Lightweight, featureful alternative to the 4chan extension / fychan" enabled="false" basedir="4chan_x">
+		<Include>http://sys.4chan.org/*</Include>
+		<Include>http://boards.4chan.org/*</Include>
+	</Script>
+	<Script filename="4chan_inline_image_expan.user.js" name="4chan inline image expander" namespace="http://cryzed.de/" description="" enabled="false" basedir="4chan_inline_image_expan">
+		<Include>http://*.4chan.org/*/*</Include>
+	</Script>
+	<Script filename="4chan_cleaner.user.js" name="4chan Cleaner" namespace="greasefire.userscripts.org" description="Cleans up 4chan" enabled="false" basedir="4chan_cleaner">
+		<Include>http://*.4chan.org/*</Include>
+		<Include>http://*.4channel.org/*</Include>
+	</Script>
+	<Script filename="4chan_time.user.js" name="4chan time" namespace="http://userscripts.org/users/64431" description="Localize and format 4chan timestamps" enabled="true" basedir="4chan_time">
+		<Include>http://*.4chan.org/*</Include>
+		<Include>http://4chanarchive.org/brchive/*</Include>
+		<Include>http://suptg.thisisnotatrueending.com/archive/*</Include>
+	</Script>
+	<Script filename="4chan_show_post_in_title.user.js" name="4chan show post in title" namespace="userscripts.org" description="shows title of thread or part of post in title of page" enabled="true" basedir="4chan_show_post_in_title">
+		<Include>http://*.4chan.org/*/res/*</Include>
+	</Script>
+	<Script filename="4chan_dark_-_easy_on_the.user.js" name="4chan dark - easy on the eye" namespace="http://userstyles.org" description="Dark style + tones that's easy on the eye" enabled="false" basedir="4chan_dark_-_easy_on_the">
+		<Include>http://4chan.org/*</Include>
+		<Include>https://4chan.org/*</Include>
+		<Include>http://*.4chan.org/*</Include>
+		<Include>https://*.4chan.org/*</Include>
+	</Script>
+	<Script filename="chanchimp.user.js" name="ChanChimp" namespace="http://sites.google.com/site/netroscripts/chanchimp" description="Intuitive 4chan GUI for fast replies + Forwardlinks/Backlinks snapshots and nesting + Filters with and different filter actions + View all attached images + Auto-threading + more." enabled="false" basedir="chanchimp">
+		<Include>http://*.4chan.org/*</Include>
+		<Include>http://4chanarchive.org/*</Include>
+	</Script>
+	<Script filename="quake_live_tier_viewer.user.js" name="Quake Live Tier Viewer" namespace="http://userscripts.org/users/38506" description="display your skill tier in each gametype" enabled="false" basedir="quake_live_tier_viewer">
+		<Include>http://www.quakelive.com/*</Include>
+	</Script>
+	<Script filename="forum_auto_pager.user.js" name="Forum Auto Pager" namespace="http://userscripts.org/scripts/show/9848" description="Auto Pager for forum" enabled="true" basedir="forum_auto_pager">
+		<Include>http://*/viewthread.php?*</Include>
+		<Include>http://*/thread-*-*-*.html</Include>
+		<Include>http://*/showthread.php?*</Include>
+		<Include>http://*/thread/*</Include>
+		<Include>http://*/thread*.html</Include>
+		<Include>http://*/index.php?*</Include>
+	</Script>
+	<Script filename="ql_alt_server_browser.user.js" name="QL Alt Server Browser" namespace="http://userscripts.org/scripts/show/46913" description="A redesign of the QL server browser." enabled="false" basedir="ql_alt_server_browser">
+		<Include>http://*.quakelive.com/*</Include>
+		<Require filename="jquery.js"/>
+		<Require filename="jquerytablesortermin.js"/>
+	</Script>
+	<Script filename="lole.user.js" name="lole" namespace="SIDE" description="lollol" enabled="true" basedir="lole">
+		<Include>http://www.google.*</Include>
+	</Script>
+</UserScriptConfig>

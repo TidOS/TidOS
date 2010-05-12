@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<?xul-overlay href="chrome://stylish/content/manage.xul"?>
+<?xml-stylesheet href="chrome://stylish/skin/manage-addons.css" type="text/css"?>
+
+<!DOCTYPE overlay [
+	<!ENTITY % manage SYSTEM "chrome://stylish/locale/manage.dtd">
+	%manage;
+]>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<script type="application/javascript" src="chrome://stylish/content/manage-addons.js"/>
+
+	<stringbundleset id="extensionsSet">
+		<stringbundleset id="stylish-stringbundleset"/>
+	</stringbundleset>
+
+	<radiogroup id="viewGroup">
+		<radio insertafter="installs-view" id="userstyles-view" label="&manageaddonstitle;" persist="last-selected"/>
+	</radiogroup>
+
+	<window id="extensionsManager">
+		<notificationbox id="styles-container" insertafter="addonsMsg" style="display: none"/>
+	</window>
+
+	<hbox id="commandBarBottom">
+		<button id="copy-style-info" label="&copyinfo;" accesskey="&copyinfo.ak;" oncommand="stylishManage.copyInfo()" style="display:none"/>
+		<button id="new-style" label="&writenew;" accesskey="&writenew.ak;" oncommand="stylishManage.newStyle()" style="display:none"/>
+	</hbox>
+
+</overlay>
