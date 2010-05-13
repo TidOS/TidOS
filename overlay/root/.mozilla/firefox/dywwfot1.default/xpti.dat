@@ -4,12 +4,13 @@
 0,Version,2,0
 1,AppDir,/usr/lib/firefox-3.6
 
-[Directories,5]
+[Directories,6]
 0,/usr/lib/firefox-3.6/components
 1,/usr/lib/xulrunner-1.9.2/components
 2,/root/.mozilla/firefox/dywwfot1.default/extensions/{46551EC9-40F0-4e47-8E18-8E5CF550CFB8}/components
 3,/root/.mozilla/firefox/dywwfot1.default/extensions/{9AA46F4F-4DC7-4c06-97AF-5035170633FE}/components
 4,/root/.mozilla/firefox/dywwfot1.default/extensions/{e4a8a97b-f2ed-450b-b12d-ee082ba24781}/components
+5,/root/.mozilla/firefox/dywwfot1.default/extensions/{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}/components
 
 [Files,7]
 0,browser.xpt,0,7642,1270235708000

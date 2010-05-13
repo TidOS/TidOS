@@ -38,7 +38,7 @@ abs:/root/.mozilla/firefox/dywwfot1.default/extensions/{46551EC9-40F0-4e47-8E18-
 gre:nsURLFormatter.js,1270235417000
 rel:libnkgnomevfs.so,1270235709000
 gre:FeedProcessor.js,1270224191000
-abs:/root/.mozilla/firefox/dywwfot1.default/extensions/{9AA46F4F-4DC7-4c06-97AF-5035170633FE}/components/4chanCom.js,1216361988000
+abs:/root/.mozilla/firefox/dywwfot1.default/extensions/{9AA46F4F-4DC7-4c06-97AF-5035170633FE}/components/4chanCom.js,1263798824000
 gre:nsUrlClassifierListManager.js,1270235452000
 gre:nsLivemarkService.js,1270235437000
 gre:libimgicon.so,1270235563000
@@ -64,6 +64,7 @@ rel:nsSessionStartup.js,1270235708000
 gre:nsUpdateService.js,1270235471000
 gre:nsProgressDialog.js,1270224146000
 gre:libmozgnome.so,1270235563000
+abs:/root/.mozilla/firefox/dywwfot1.default/extensions/{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}/components/AdblockPlus.js,1272639176000
 gre:nsXULAppInstall.js,1270235556000
 gre:nsUpdateTimerManager.js,1270235471000
 gre:nsFormAutoComplete.js,1270224191000
@@ -313,12 +314,13 @@ gre:txEXSLTRegExFunctions.js,1270224139000
 {9158c470-86e4-11d4-9be2-00e09872a416},,application/x-mozilla-static,,necko
 {b9507aec-1dd1-11b2-8cd5-c48ee0c50307},,application/x-mozilla-static,,NSS
 {26a4a019-2827-4a89-a85c-5931a678823a},,text/javascript,,gre:nsUrlClassifierLib.js
-{b6ed3030-6183-11d3-a178-0050041caf44},,application/x-mozilla-static,,necko
+{b6ed3030-6183-11d3-a178-0050041caf44},@mozilla.org/network/protocol;1?name=data,application/x-mozilla-static,Data Protocol Handler,necko
 {c07e81e0-ef12-11d2-92b6-00105a1b0d64},@mozilla.org/network/socket-transport-service;1,application/x-mozilla-static,nsSocketTransportService,necko
 {64d6174c-1496-4ffd-87f2-da2670f88934},,application/x-mozilla-static,,mozSpellCheckerModule
 {fb5c1775-1bbd-4b9c-abb0-ae7acd29e87e},,application/x-mozilla-static,,nsLayoutModule
 {2002f781-3960-11d3-b3c3-00805f8a6670},,application/x-mozilla-static,,nsChardetModule
 {1f34bc80-1bc7-11d6-a384-d705dd0746fc},,application/x-mozilla-static,,nsLayoutModule
+{d32a3c00-4ed3-11de-8a39-0800200c9a66},,text/javascript,,abs:/root/.mozilla/firefox/dywwfot1.default/extensions/{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}/components/AdblockPlus.js
 {ba61519a-1dfa-11d3-b3bf-00805f8a6670},,application/x-mozilla-static,,nsUConvModule
 {8b042e22-6f87-11d3-b3c8-00805f8a6670},,application/x-mozilla-static,,nsUConvModule
 {4dc30689-929d-425e-a709-082c6294e542},,application/x-mozilla-static,,nsLayoutModule
@@ -352,7 +354,7 @@ gre:txEXSLTRegExFunctions.js,1270224139000
 {23e8fd98-a625-4b08-be1a-f7cc18a5b106},,application/x-mozilla-static,,nsPluginModule
 {77cfaaf2-1cf4-11d3-8aaf-00600811a836},,application/x-mozilla-static,,nsUConvModule
 {d9b1f97e-cfa0-80b6-fb92-9972e48e3dcc},,application/x-mozilla-static,,nsUConvModule
-{929814d6-1dd2-11b2-8e08-82fa0a339b00},,application/x-mozilla-static,,xpconnect
+{929814d6-1dd2-11b2-8e08-82fa0a339b00},@mozilla.org/moz/jssubscript-loader;1,application/x-mozilla-static,JS subscript loader,xpconnect
 {ba5bc4c6-1dd1-11b2-bb89-b844c6ec0339},,application/x-mozilla-static,,nsAutoConfigModule
 {e7caf8c0-3570-47fe-aa1b-da47539b5d07},,application/x-mozilla-static,,NSS
 {ea06d4e5-2b3d-11d3-b3bf-00805f8a6670},,application/x-mozilla-static,,nsUniversalCharDetModule
@@ -398,6 +400,7 @@ gre:txEXSLTRegExFunctions.js,1270224139000
 {6803cacc-1e3b-11d5-a145-005004832142},,application/x-mozilla-static,,nsUConvModule
 {9f6d5d40-90e7-11d3-af80-00a024ffc08c},,application/x-mozilla-static,,docshell_provider
 {8b5314bc-db01-11d2-96ce-0060b0fb9956},,application/x-mozilla-static,,nsWidgetGtk2Module
+{259c2980-505f-11de-8a39-0800200c9a66},,text/javascript,,abs:/root/.mozilla/firefox/dywwfot1.default/extensions/{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}/components/AdblockPlus.js
 {660d8ca7-f763-11d2-8aad-00600811a836},,application/x-mozilla-static,,nsUConvModule
 {7b8556a2-ec79-11d2-8aac-00600811a836},,application/x-mozilla-static,,nsUConvModule
 {bd1326a6-5a14-48de-97cc-95b5195f4fb9},,application/x-mozilla-static,,nsUCvMathModule
@@ -553,7 +556,7 @@ gre:txEXSLTRegExFunctions.js,1270224139000
 {374e0cde-f605-4259-8c92-e639c6c2eeef},,application/x-mozilla-static,,nsUniversalCharDetModule
 {2a898043-180f-4c8b-8e54-410c7a540f27},,application/x-mozilla-static,,nsWidgetGtk2Module
 {2376201c-bbc6-472f-9b62-7548040a61c6},,text/javascript,,rel:FeedConverter.js
-{e0da1d70-2f7b-11d3-8cd0-0060b0fc14a3},,application/x-mozilla-static,,necko
+{e0da1d70-2f7b-11d3-8cd0-0060b0fc14a3},@mozilla.org/network/simple-uri;1,application/x-mozilla-static,nsSimpleURI,necko
 {a181af0d-68b8-4308-94db-d4f859058215},,application/x-mozilla-static,,necko
 {461cd5dd-73c6-47a4-8cc3-603b37d84a61},,application/x-mozilla-static,,ZipWriterModule
 {5534ddc0-dd96-11d2-8aac-00600811a836},@mozilla.org/intl/unicode/decoder;1?charset=UTF-8,application/x-mozilla-static,UTF-8 To Unicode Converter,nsUConvModule
@@ -1093,6 +1096,7 @@ gre:txEXSLTRegExFunctions.js,1270224139000
 @mozilla.org/network/auth-module;1?name=kerb-gss,{dc8e21a0-03e4-11da-8cd6-0800200c9a66}
 @mozilla.org/layout/contentserializer;1?mimetype=application/xhtml+xml,{e7c2aaf5-c11a-4954-9dbf-e28edec1fd91}
 @mozilla.org/appshell/appShellService;1,{0099907d-123c-4853-a46a-43098b5fb68c}
+@adblockplus.org/abp/startup;1,{d32a3c00-4ed3-11de-8a39-0800200c9a66}
 @mozilla.org/network/protocol/about;1?what=mozilla,{f0acde16-1dd1-11b2-9e35-f5786fff5a66}
 @mozilla.org/js/jsd/app-start-observer;2,{2fd6b7f6-eb8c-4f32-ad26-113f2c02d0fe}
 @mozilla.org/network/protocol/about;1?what=plugins,{f0acde16-1dd1-11b2-9e35-f5786fff5a66}
@@ -1395,6 +1399,7 @@ gre:txEXSLTRegExFunctions.js,1270224139000
 @mozilla.org/intl/unicode/decoder;1?charset=ISO-8859-6-I,{495eca44-0a5c-11d4-a135-005004832142}
 @mozilla.org/dirIndex;1,{f6913e2e-1dd1-11b2-84be-f455dee342af}
 @mozilla.org/intl/unicode/decoder;1?charset=x-mac-croatian,{6394eea7-fc3d-11d2-b3b8-00805f8a6670}
+@mozilla.org/adblockplus;1,{259c2980-505f-11de-8a39-0800200c9a66}
 @mozilla.org/appshell/window-mediator;1,{0659cb83-faad-11d2-8e19-b206620a657c}
 @mozilla.org/network/protocol/about;1?what=rights,{7e4bb6ad-2fc4-4dc6-89ef-23e8e5ccf980}
 @mozilla.org/network/simple-uri;1,{e0da1d70-2f7b-11d3-8cd0-0060b0fc14a3}
@@ -1784,6 +1789,7 @@ command-line-handler,b-jsconsole,@mozilla.org/toolkit/console-clh;1
 command-line-handler,m-setdefaultbrowser,@mozilla.org/browser/default-browser-clh;1
 command-line-handler,m-browser,@mozilla.org/browser/clh;1
 command-line-handler,y-default,@mozilla.org/toolkit/default-clh;1
+content-policy,Adblock Plus component,@mozilla.org/adblockplus;1
 content-policy,@mozilla.org/data-document-content-policy;1,@mozilla.org/data-document-content-policy;1
 content-policy,@mozilla.org/no-data-protocol-content-policy;1,@mozilla.org/no-data-protocol-content-policy;1
 content-policy,@mozilla.org/permissions/contentblocker;1,@mozilla.org/permissions/contentblocker;1
@@ -1817,6 +1823,7 @@ charset-detectors,ukprob,@mozilla.org/intl/charsetdetect;1?type=ukprob
 JavaScript global property,InstallTrigger,@mozilla.org/xpinstall/installtrigger;1
 JavaScript global property,external,@mozilla.org/sidebar;1
 JavaScript global property,sidebar,@mozilla.org/sidebar;1
+net-channel-event-sinks,Adblock Plus component,@mozilla.org/adblockplus;1
 command-line-validator,b-browser,@mozilla.org/browser/clh;1
 Gecko-Content-Viewers,application/xml,@mozilla.org/content/document-loader-factory;1
 Gecko-Content-Viewers,application/x-javascript,@mozilla.org/content/document-loader-factory;1
@@ -1858,6 +1865,7 @@ JavaScript global constructor prototype alias,Option,HTMLOptionElement
 module-loader,text/javascript,@mozilla.org/moz/jsloader;1
 app-startup,Browser Session Startup Service,service,@mozilla.org/browser/sessionstartup;1
 app-startup,GM_GreasemonkeyService,@greasemonkey.mozdev.org/greasemonkey-service;1
+app-startup,Adblock Plus initializer,service,@adblockplus.org/abp/startup;1
 app-startup,tryToClose Service,service,@mozilla.org/appshell/trytoclose;1
 app-startup,Web Content Handler Registrar,service,@mozilla.org/embeddor.implemented/web-content-handler-registrar;1
 app-startup,PrivateBrowsing Service,service,@mozilla.org/privatebrowsing;1

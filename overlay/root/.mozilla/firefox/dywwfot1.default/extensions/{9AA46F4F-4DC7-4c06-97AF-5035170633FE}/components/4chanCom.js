@@ -186,6 +186,7 @@ chanManagerObject.prototype = {
 	LayoutXMLLoaded: false,
 	IsFirstTime: true,
 	DataLastUpdatedTime: null,
+	_lastMessage: "",
 	
 	
 	get BoardsXMLLocalFN() { return "4chan_boards.xml"; },
@@ -423,10 +424,11 @@ chanManagerObject.prototype = {
 		if( FirstDirPos == -1 )
 			return null;
 
-
 		var DomainEtc = BoardURL.substr( 0, SlashPos /* + 1 done include "/" */);
 		var FirstDir = BoardURL.substr( SlashPos + 1, FirstDirPos - SlashPos - 1 );
-
+		
+		this._lastMessage = FirstDir;
+		
 		for( var i = 0; i < this.Locations.length; i++ )
 		{
 			if( this.Locations[i].Url == DomainEtc || this.Locations[i].AltUrl == DomainEtc )
@@ -446,7 +448,6 @@ chanManagerObject.prototype = {
 		}
 		
 		return null;
-
 	}
 	,
 	GetBoardByDir: function( BoardDir )
@@ -1119,6 +1120,34 @@ chanManagerObject.prototype = {
 	}
 	,
 	
+// mozStorage ===================================================================================================================================
+
+// mozStorage ===================================================================================================================================
+	mainDataseConnection: null,
+	
+	initMozStorage: function()
+	{
+		var directoryService = Components.classes["@mozilla.org/file/directory_service;1"].getService( Components.interfaces.nsIProperties );
+		
+		// open the file
+		var databaseFile = directoryService.get( "ProfD", Components.interfaces.nsIFile );
+		databaseFile.append( "4chan_main.db" );	
+	
+		var storageService = Components.classes["@mozilla.org/storage/service;1"].getService( Components.interfaces.mozIStorageService );
+		this.mainDataseConnection = storageService.openDatabase( databaseFile );
+		
+		this._initMainDatabase();
+	}
+	,
+	_initMainDatabase: function()
+	{
+		this._upgradeMainDatabase_none_to_1();
+	}
+	,
+	_upgradeMainDatabase_none_to_1: function()
+	{
+	}
+	,
 
     // XPCOM Glue
     QueryInterface: function(iid)
