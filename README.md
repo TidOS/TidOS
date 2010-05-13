@@ -1,6 +1,14 @@
-POSSIBLE BUGS:
+DOWNLOAD LINK
+http://www.megaupload.com/?d=PJLRZ5I4
+
+
+
+>POSSIBLE BUGS:
+
 >networkmanager applet not visible, to fix press win + r and type netfix or run netfix in a console
+
 >music not playing, to fix restart mpd and run mpc play
+
 
 
 There are desktop-related scripts in ~/TIDUS
