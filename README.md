@@ -32,3 +32,5 @@ If you're new to GNU/Linux, type `startx now` to start `xmonad`.
 There are desktop-related scripts in `~/TIDUS`
 
 - `desktopthread` - posts desktop in /g/ and opens Firefox to it
+- 
+implying TidOS is dead
