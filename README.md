@@ -1,4 +1,5 @@
 # TidOS
+NOTE:  this repository does not contain an iso, it was hosted at megaupload which went away and became mega.  The scripts also almost certainly no longer work, but many of the configuration files found in the skel directory should still be relevant if you're interested.
 
 A preconfigured/prericed Arch Linux installation for those that want a quick and
 dirty setup.
